@@ -1,0 +1,380 @@
+[
+  {
+    "kind": "calendar#event",
+    "etag": "\"0000000000000001\"",
+    "id": "firstInstanceOfRecurringNoMiterId",
+    "status": "confirmed",
+    "htmlLink": "https://www.google.com/calendar/event?eid=",
+    "created": "2020-12-11T23:40:49.000Z",
+    "updated": "2021-01-04T16:21:56.814Z",
+    "summary": "First Instance of Recurring - No Miter ID",
+    "description": "",
+    "creator": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "organizer": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "start": {
+      "dateTime": "2020-12-14T14:30:00-08:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "end": {
+      "dateTime": "2020-12-14T15:30:00-08:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "recurrence": ["RRULE:FREQ=WEEKLY;UNTIL=20210104T075959Z;BYDAY=MO"],
+    "iCalUID": "firstInstanceOfRecurringNoMiterId@google.com",
+    "sequence": 1,
+    "attendees": [
+      {
+        "email": "sampleemaildw@test.miter.co",
+        "responseStatus": "needsAction"
+      },
+      {
+        "email": "sampleemaildf@test.miter.co",
+        "organizer": true,
+        "self": true,
+        "responseStatus": "accepted"
+      }
+    ],
+    "guestsCanModify": true,
+    "reminders": {
+      "useDefault": true
+    },
+    "eventType": "default"
+  },
+  {
+    "kind": "calendar#event",
+    "etag": "\"0000000000000002\"",
+    "id": "firstInstanceOfRecurringNoMiterId_20210118T223000",
+    "status": "confirmed",
+    "htmlLink": "https://www.google.com/calendar/event?eid=",
+    "created": "2020-12-11T23:40:49.000Z",
+    "updated": "2021-01-19T19:00:50.552Z",
+    "summary": "Competitive Bash",
+    "description": "",
+    "location": "https://us02web.zoom.us/",
+    "creator": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "organizer": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "start": {
+      "dateTime": "2021-01-18T14:30:00-08:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "end": {
+      "dateTime": "2021-01-18T15:30:00-08:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "recurringEventId": "firstInstanceOfRecurringNoMiterId",
+    "iCalUID": "firstInstanceOfRecurringNoMiterId_20210118T223000@google.com",
+    "sequence": 2,
+    "attendees": [
+      {
+        "email": "sampleemaildw@test.miter.co",
+        "responseStatus": "accepted"
+      },
+      {
+        "email": "sampleemaildf@test.miter.co",
+        "organizer": true,
+        "self": true,
+        "responseStatus": "accepted"
+      }
+    ],
+    "guestsCanModify": true,
+    "reminders": {
+      "useDefault": true
+    },
+    "eventType": "default"
+  },
+  {
+    "kind": "calendar#event",
+    "etag": "\"0000000000000003\"",
+    "id": "singleInstanceNoMiterId",
+    "status": "confirmed",
+    "htmlLink": "https://www.google.com/calendar/event?eid=",
+    "created": "2021-03-22T21:16:37.000Z",
+    "updated": "2021-03-22T21:16:44.422Z",
+    "summary": "Single Instance - No Miter ID",
+    "description": "",
+    "location": "Microsoft Teams Meeting",
+    "creator": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "organizer": {
+      "email": "priyanka.mitra@m12.vc",
+      "displayName": "Priyanka Mitra"
+    },
+    "start": {
+      "dateTime": "2021-08-02T11:00:00-07:00"
+    },
+    "end": {
+      "dateTime": "2021-08-02T11:30:00-07:00"
+    },
+    "iCalUID": "singleInstanceNoMiterId",
+    "sequence": 0,
+    "attendees": [
+      {
+        "email": "sampleemaildw@test.miter.co",
+        "responseStatus": "needsAction"
+      },
+      {
+        "email": "sampleemaildf@test.miter.co",
+        "self": true,
+        "responseStatus": "needsAction"
+      }
+    ],
+    "guestsCanInviteOthers": false,
+    "privateCopy": true,
+    "reminders": {
+      "useDefault": true
+    },
+    "eventType": "default"
+  },
+  {
+    "kind": "calendar#event",
+    "etag": "\"0000000000000004\"",
+    "id": "singleInstanceYesMiterId",
+    "status": "confirmed",
+    "htmlLink": "https://www.google.com/calendar/event?eid=",
+    "created": "2021-04-30T22:31:56.000Z",
+    "updated": "2021-04-30T22:31:56.722Z",
+    "summary": "Single Instance - Yes Miter ID",
+    "description": "<span><span>Goal: </span><strong>Building calendar events for testing</strong><br><em><a href=\"https://miter.co/install?mitersrc=co.miter.extension&meetingId=aa0e1906-74ba-402e-b0c9-77bc7d98b6f8?mitersrc=co.miter.extension\">Open in Miter</a> for better outcomes.</em></span><br>_____________________________<br>──────────<br><br>──────────",
+    "creator": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "organizer": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "start": {
+      "dateTime": "2021-05-24T15:30:00-07:00"
+    },
+    "end": {
+      "dateTime": "2021-05-24T16:00:00-07:00"
+    },
+    "iCalUID": "singleInstanceYesMiterId@google.com",
+    "sequence": 0,
+    "reminders": {
+      "useDefault": true
+    },
+    "eventType": "default"
+  },
+  {
+    "kind": "calendar#event",
+    "etag": "\"0000000000000005\"",
+    "id": "firstInstanceOfRecurringYesMiterIdNoAdditional",
+    "status": "confirmed",
+    "htmlLink": "https://www.google.com/calendar/event?eid=",
+    "created": "2020-11-12T17:45:05.000Z",
+    "updated": "2021-05-03T18:56:24.404Z",
+    "summary": "First Instance of Recurring - Yes Miter ID",
+    "description": "<span><span>Goal: </span><strong>Building calendar events for testing</strong><br><em><a href=\"https://miter.co/install?mitersrc=co.miter.extension&meetingId=8b6ce1c4-69f2-4c01-bec8-32cdd3b0a07d?mitersrc=co.miter.extension\">Open in Miter</a> for better outcomes.</em></span><br>_____________________________<br>──────────<br><br>──────────",
+    "location": "https://us02web.zoom.us/",
+    "creator": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "organizer": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "start": {
+      "dateTime": "2021-05-07T11:00:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "end": {
+      "dateTime": "2021-05-07T11:45:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "recurrence": ["RRULE:FREQ=WEEKLY;BYDAY=FR"],
+    "iCalUID": "firstInstanceOfRecurringYesMiterIdNoAdditional@google.com",
+    "sequence": 0,
+    "attendees": [
+      {
+        "email": "sampleemaildw@test.miter.co",
+        "responseStatus": "accepted"
+      },
+      {
+        "email": "sampleemaildf@test.miter.co",
+        "organizer": true,
+        "self": true,
+        "responseStatus": "accepted"
+      }
+    ],
+    "guestsCanModify": true,
+    "reminders": {
+      "useDefault": true
+    },
+    "eventType": "default"
+  },
+  {
+    "kind": "calendar#event",
+    "etag": "\"0000000000000006\"",
+    "id": "firstInstanceOfRecurringYesMiterIdYesAdditional",
+    "status": "confirmed",
+    "htmlLink": "https://www.google.com/calendar/event?eid=MjJqZGxpNWc2a2xzMTU0NDRrazltY3Q1cWFfMjAyMTA1MTRUMTgwMDAwWiBkYXZlQG1pdGVyLmNv",
+    "created": "2021-05-05T22:00:25.000Z",
+    "updated": "2021-05-10T17:47:29.761Z",
+    "summary": "First Instance of Recurring - Yes Miter Id / Yes Additional Instances",
+    "description": "<span><span>Goal: </span><strong>Building calendar events for testing</strong><br><em><a href=\"https://miter.co/install?mitersrc=co.miter.extension&meetingId=0a90be89-be6b-4383-a720-476f246289f4?mitersrc=co.miter.extension\">Open in Miter</a> for better outcomes.</em></span><br>_____________________________<br>──────────<br><br>──────────",
+    "location": "https://zoom.us/j/",
+    "creator": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "organizer": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "start": {
+      "dateTime": "2021-05-14T11:00:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "end": {
+      "dateTime": "2021-05-14T12:00:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "recurrence": ["RRULE:FREQ=WEEKLY;WKST=SU;INTERVAL=3;BYDAY=FR"],
+    "iCalUID": "firstInstanceOfRecurringYesMiterIdYesAdditional@google.com",
+    "sequence": 0,
+    "attendees": [
+      {
+        "email": "sampleemaildf@test.miter.co",
+        "organizer": true,
+        "self": true,
+        "responseStatus": "accepted"
+      },
+      {
+        "email": "sampleemaildw@test.miter.co",
+        "responseStatus": "accepted"
+      },
+      {
+        "email": "awhillans@hbs.edu",
+        "responseStatus": "accepted"
+      }
+    ],
+    "guestsCanModify": true,
+    "reminders": {
+      "useDefault": true
+    },
+    "eventType": "default"
+  },
+  {
+    "kind": "calendar#event",
+    "etag": "\"0000000000000007\"",
+    "id": "firstInstanceOfRecurringYesMiterIdYesAdditional_20210625T180000Z",
+    "summary": "Adding a new title for the Nth Instance",
+    "status": "confirmed",
+    "recurringEventId": "firstInstanceOfRecurringYesMiterIdYesAdditional",
+    "originalStartTime": {
+      "dateTime": "2021-06-25T11:00:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    }
+  },
+  {
+    "kind": "calendar#event",
+    "etag": "\"0000000000000008\"",
+    "id": "firstInstanceOfRecurringNoMiterId_CompoundServiceId",
+    "status": "confirmed",
+    "htmlLink": "https://www.google.com/calendar/event?eid=",
+    "created": "2020-12-11T23:40:49.000Z",
+    "updated": "2021-01-04T16:21:56.814Z",
+    "summary": "First Instance of Recurring - No Miter ID, Compound Service Id",
+    "description": "",
+    "creator": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "organizer": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "start": {
+      "dateTime": "2020-12-14T14:30:00-08:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "end": {
+      "dateTime": "2020-12-14T15:30:00-08:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "recurrence": ["RRULE:FREQ=WEEKLY;UNTIL=20210104T075959Z;BYDAY=MO"],
+    "iCalUID": "firstInstanceOfRecurringNoMiterId@google.com",
+    "sequence": 1,
+    "attendees": [
+      {
+        "email": "sampleemaildw@test.miter.co",
+        "responseStatus": "needsAction"
+      },
+      {
+        "email": "sampleemaildf@test.miter.co",
+        "organizer": true,
+        "self": true,
+        "responseStatus": "accepted"
+      }
+    ],
+    "guestsCanModify": true,
+    "reminders": {
+      "useDefault": true
+    },
+    "eventType": "default"
+  },
+  {
+    "kind": "calendar#event",
+    "etag": "\"0000000000000009\"",
+    "id": "firstInstanceCompoundTestYesMiterId_CompoundId",
+    "status": "confirmed",
+    "htmlLink": "https://www.google.com/calendar/event?eid=",
+    "created": "2020-11-12T17:45:05.000Z",
+    "updated": "2021-05-03T18:56:24.404Z",
+    "summary": "Compound First ID - Yes Miter ID",
+    "description": "<span><span>Goal: </span><strong>Building calendar events for testing</strong><br><em><a href=\"https://miter.co/install?mitersrc=co.miter.extension&meetingId=0fd39659-0c1e-4499-bdec-1af9c9814b54?mitersrc=co.miter.extension\">Open in Miter</a> for better outcomes.</em></span><br>_____________________________<br>──────────<br><br>──────────",
+    "location": "https://us02web.zoom.us/",
+    "creator": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "organizer": {
+      "email": "sampleemaildf@test.miter.co",
+      "self": true
+    },
+    "start": {
+      "dateTime": "2021-05-07T11:00:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "end": {
+      "dateTime": "2021-05-07T11:45:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "recurrence": ["RRULE:FREQ=WEEKLY;BYDAY=FR"],
+    "iCalUID": "firstInstanceCompoundTestYesMiterId_CompoundId@google.com",
+    "sequence": 0,
+    "attendees": [
+      {
+        "email": "sampleemaildw@test.miter.co",
+        "responseStatus": "accepted"
+      },
+      {
+        "email": "sampleemaildf@test.miter.co",
+        "organizer": true,
+        "self": true,
+        "responseStatus": "accepted"
+      }
+    ],
+    "guestsCanModify": true,
+    "reminders": {
+      "useDefault": true
+    },
+    "eventType": "default"
+  }
+]

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+USER_EMAIL="$1"
+
+if [ -z "$USER_EMAIL" ]
+then
+  echo "You must provide a valid email address. Usage: 'get-user-id joe@test.miter.co'";
+  exit 1;
+fi
+
+
+echo "SELECT user_id FROM users WHERE login_email='$USER_EMAIL';" | psql -Aqt -U miter miter-test

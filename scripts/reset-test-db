@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd `dirname $0`
+
+# Can remove after everyone has run this script
+psql miter-test -c "drop schema if exists public cascade;"
+
+psql -U miter miter-test -c "drop schema if exists public cascade; create schema public;"
+psql -U miter miter-test < ./create-db-tables.sql && 
+psql -U miter miter-test < ./populate-test-data.sql 

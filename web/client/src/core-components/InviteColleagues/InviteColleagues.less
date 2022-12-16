@@ -1,0 +1,98 @@
+@import 'Global.less';
+
+.InviteColleagues {
+  // Spacing.
+  margin-top: 4px;
+
+  // Layout.
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  max-width: 500px;
+
+  .Title {
+    font-weight: 800;
+    color: @miter-primary-color;
+    font-size: 20px;
+  }
+
+  .Instructions {
+    text-align: center;
+    padding: 0 18px;
+    margin-bottom: 8px;
+  }
+
+  .ColleaguesList {
+    width: 100%;
+    height: 260px;
+    overflow-y: auto;
+    border-radius: 8px;
+    background: @black-alpha-xxlight;
+    padding: 12px 16px;
+
+    .ListItem {
+      padding: 8px 2px;
+
+      .CheckboxWrapper .Label {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .PersonName,
+      .Highlighted.Email {
+        font-weight: 600;
+      }
+    }
+
+    .ShowMoreBtn {
+      // Align the text with the avatar in the previous rows.
+      margin-left: 34px;
+
+      padding: 4px 0;
+      font-weight: 600;
+      color: @miter-text-color-secondary;
+
+      &:hover {
+        cursor: pointer;
+        color: @black-alpha-med;
+      }
+    }
+
+    .EmptyListMessage {
+      color: @black-alpha-med;
+      text-align: center;
+      font-weight: 600;
+      padding: 10px 0;
+
+      // Center the message in the container box.
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .Footer {
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .RightSection {
+      display: flex;
+      gap: 8px;
+    }
+  }
+
+  // If the viewport size is very narrow (it's probably the Zoom sidebar or the Chrome Extension).
+  @media screen and (max-width: 460px) {
+    // Hide the skip button since there's a Close button already in the upper-right side of the modal.
+    .SkipBtn {
+      display: none;
+    }
+  }
+}

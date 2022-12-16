@@ -1,0 +1,108 @@
+{
+  "name": "miter-server",
+  "version": "1.15.2",
+  "description": "Miter MVP Server",
+  "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "test": "jest --silent --maxWorkers=75%",
+    "tdd": "jest --verbose --watch",
+    "test:nocache": "npx jest --clearCache && jest --silent --maxWorkers=75%",
+    "test:nocache:changed": "npx jest --clearCache && jest -o --silent --maxWorkers=75%",
+    "test:debug": "npx jest --clearCache && jest --runInBand --detectOpenHandles",
+    "test:log": "jest --maxWorkers=75%",
+    "build:static": "rsync -r ./static-src/* ./static && ./node_modules/typescript/bin/tsc static/*.ts",
+    "build": "DISABLE_ESLINT_PLUGIN=true npm run build:static && ./node_modules/typescript/bin/tsc",
+    "start": "DISABLE_ESLINT_PLUGIN=true node index.js",
+    "dev": "nodemon index.ts",
+    "renew": "node jobs/renew-push-channels.js",
+    "hubspot:summary": "node jobs/sync-summary-hubspot-data.js",
+    "hubspot:companies": "node jobs/sync-new-hubspot-companies.js",
+    "new:org": "node jobs/new-organization.js",
+    "lock:org": "node jobs/lock-organization.js",
+    "new:domains": "node jobs/new-domains.js",
+    "register:domains": "node jobs/register-domains.js",
+    "email": "node jobs/send-emails.js",
+    "email:dev": "nodemon jobs/send-emails.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miterco/mvp-server.git"
+  },
+  "author": "Dave Feldman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miterco/mvp-server/issues"
+  },
+  "homepage": "https://github.com/miterco/mvp-server#readme",
+  "dependencies": {
+    "@hubspot/api-client": "^5.0.0",
+    "@prisma/client": "3.12.0",
+    "@sendgrid/mail": "7.6.2",
+    "@sentry/node": "^6.17.4",
+    "@sentry/tracing": "^6.17.4",
+    "@types/cookie-parser": "1.4.2",
+    "@types/cors": "2.8.12",
+    "@types/express": "4.17.13",
+    "@types/helmet": "^4.0.0",
+    "@types/jest": "27.4.1",
+    "@types/joi": "17.2.3",
+    "@types/mustache": "4.1.2",
+    "@types/node": "14.18.9",
+    "@types/pg": "7.14.11",
+    "@types/supertest": "2.0.12",
+    "@types/uuid": "8.3.1",
+    "@types/ws": "7.4.7",
+    "axios": "0.21.4",
+    "chrono-node": "2.3.1",
+    "cookie-parser": "1.4.6",
+    "cors": "2.8.5",
+    "dotenv": "8.6.0",
+    "email-validator": "2.0.4",
+    "express": "4.17.1",
+    "express-rate-limit": "^6.2.0",
+    "googleapis": "67.1.1",
+    "helmet": "^5.0.2",
+    "html-entities": "2.3.2",
+    "jest": "27.5.1",
+    "joi": "17.6.0",
+    "juice": "8.0.0",
+    "miter-common": "file:../common",
+    "mock-socket": "9.0.7",
+    "mustache": "4.2.0",
+    "pg": "8.7.1",
+    "supertest": "6.2.2",
+    "ts-node": "9.1.1",
+    "typescript": "4.3.5",
+    "uuid": "8.3.2",
+    "ws": "7.5.5"
+  },
+  "devDependencies": {
+    "eslint": "8.13.0",
+    "eslint-plugin-jest": "26.1.4",
+    "nodemon": "2.0.12",
+    "prisma": "3.12.0",
+    "ts-jest": "27.1.4"
+  },
+  "prettier": {
+    "bracketSpacing": false,
+    "arrowParens": "avoid",
+    "semi": true,
+    "printWidth": 120,
+    "singleQuote": true
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "*.test.ts",
+      "static"
+    ],
+    "events": {
+      "start": "DISABLE_ESLINT_PLUGIN=true npm run build:static"
+    }
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  }
+}

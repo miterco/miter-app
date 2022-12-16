@@ -1,0 +1,80 @@
+@import 'Global.less';
+
+@default-color: @black-alpha-light;
+@highlight-color: @brand1-med;
+
+.CheckboxWrapper {
+  display: flex;
+  align-items: center;
+
+  .Checkbox {
+    position: relative;
+    transition: all 0.3s;
+    display: block;
+
+    input {
+      appearance: none;
+      width: 100%;
+      height: 100%;
+      border: 2.25px @brand1-meddark solid;
+      border-radius: 4px;
+      border-color: @default-color;
+    }
+
+    .Check {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-top: 1px;
+      pointer-events: none;
+
+      path {
+        color: @default-color;
+      }
+    }
+
+    &:hover {
+      transform: scale(1.08);
+
+      input {
+        border-color: @highlight-color;
+      }
+    }
+
+    &.Highlighted {
+      input {
+        border-color: @highlight-color;
+      }
+
+      .Check path {
+        color: @highlight-color;
+      }
+    }
+  }
+
+  .Label {
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+    color: @miter-primary-color;
+    font-weight: 400;
+    cursor: pointer;
+  }
+
+  &.SizeSmall {
+    gap: 4px;
+    .Checkbox {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &.SizeLarge {
+    gap: 8px;
+    .Checkbox {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

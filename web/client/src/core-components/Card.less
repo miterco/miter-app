@@ -1,0 +1,141 @@
+@import 'Global.less';
+
+.Card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  backdrop-filter: blur(8px);
+  background-color: @miter-card-background;
+  box-shadow: @miter-card-shadow;
+  border-radius: 8px;
+  padding: 0;
+
+  & > header {
+    padding: (@card-padding) (@card-padding + 8);
+    margin: 0;
+    border: 0;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    h3 {
+      flex: 1;
+      margin: 0;
+      text-align: left;
+      font-weight: 800;
+      color: @miter-primary-color;
+    }
+
+    &.Custom {
+      padding: 0;
+      align-items: stretch;
+      justify-content: stretch;
+
+      & > * {
+        flex: 1;
+      }
+    }
+  }
+
+  & > *:last-child {
+    padding: 0 @card-padding @card-padding @card-padding;
+  }
+
+  &.ListCard {
+    min-height: 200px;
+    overflow: hidden;
+    flex: 1;
+
+    & > header {
+      margin-bottom: 2px;
+      box-shadow: @low-card-shadow;
+      z-index: 99;
+    }
+
+    & > *:last-child {
+      overflow-y: auto;
+      overflow-x: visible;
+      min-height: 0;
+      margin: 1px 1px 1px 0;
+    }
+  }
+
+  .Toolbar {
+    margin-right: -8px;
+    flex: 0;
+
+    button span {
+      font-size: @font-size-small;
+      font-weight: 500;
+      color: @brand2;
+    }
+
+    button.Btn.ant-btn-text {
+      svg {
+        width: 20px;
+        height: 20px;
+
+        path {
+          fill: @brand2;
+        }
+      }
+
+      &:hover {
+        background-color: @brand2-alpha-lightest;
+
+        path {
+          fill: @brand2;
+        }
+        span {
+          color: @brand2;
+        }
+      }
+
+      &:disabled {
+        background-color: transparent;
+
+        path {
+          fill: @black-alpha-light;
+        }
+        span {
+          color: @black-alpha-light;
+        }
+      }
+    }
+  }
+
+  &.CenterTitle header {
+    h3 {
+      text-align: center;
+    }
+    .Toolbar {
+      position: absolute;
+      margin: 0;
+      right: 12px;
+
+      &.LeftTb {
+        left: 12px;
+        right: auto;
+      }
+    }
+  }
+}
+
+.CardList {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow-y: auto;
+  flex: 1;
+  margin-right: 2px;
+  margin-bottom: -@card-padding;
+  padding-left: @card-padding;
+  padding-right: 8px;
+
+  &.NoContent {
+    justify-content: center;
+    margin: 24px;
+  }
+}

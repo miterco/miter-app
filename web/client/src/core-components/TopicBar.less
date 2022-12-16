@@ -1,0 +1,122 @@
+@import 'Global.less';
+
+.TopicBar {
+  margin: -2px -2px 0 -2px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
+
+  button.TopicDropdown,
+  button.NextBtn {
+    padding-left: 16px;
+    border-radius: 0;
+
+    &:hover {
+      transform: scale(1) !important;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  button.TopicDropdown {
+    flex: 1 1;
+    min-width: 0;
+    justify-content: flex-start;
+    padding-right: 12px;
+    padding-left: 2px;
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    border-color: @black-alpha-lighter;
+    color: @miter-primary-color;
+    font-size: 15px;
+
+    span.Text {
+      flex: 1 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+      margin-left: 12px;
+      font-weight: 600;
+      width: 0;
+    }
+    &.NoVal span.Text {
+      color: @black-alpha-med;
+    }
+
+    svg.Arrow {
+      width: 16px;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: fade(@miter-btn-text-hover-bg, 10%);
+      color: @brand1-darkest;
+    }
+
+    .TopicShape svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  button.Btn.NextBtn {
+    padding-right: 4px;
+    width: auto;
+
+    svg {
+      width: 20px;
+    }
+
+    svg,
+    path {
+      fill: @miter-btn-color;
+    }
+    span {
+      color: @miter-btn-color;
+      font-weight: 600;
+    }
+    &[disabled] {
+      svg,
+      path {
+        fill: @black-alpha-med !important;
+      }
+      span {
+        color: @black-alpha-med !important;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      border-color: transparent;
+    }
+  }
+}
+
+div.TopicsOverlay {
+  .ant-popover-inner-content {
+    padding: 4px;
+  }
+  .TopicList {
+    max-height: 440px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    footer {
+      justify-content: flex-start;
+
+      button.AddBtn {
+        padding: 0;
+        flex: 1;
+        justify-content: flex-start;
+
+        &:hover {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}

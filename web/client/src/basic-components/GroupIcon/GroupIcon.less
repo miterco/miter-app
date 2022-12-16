@@ -1,0 +1,28 @@
+@import 'Global.less';
+
+.GroupIcon {
+  width: 12px;
+  position: relative;
+  span {
+    position: absolute;
+    &::before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 12px;
+      background-color: @brand1-muted;
+      border: 1px solid @black-alpha-lighter;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    &:nth-child(2) {
+      transform: translate(2px, 2px);
+      z-index: 1;
+    }
+    &:nth-child(3) {
+      transform: translate(4px, 4px);
+      z-index: 1;
+    }
+  }
+}

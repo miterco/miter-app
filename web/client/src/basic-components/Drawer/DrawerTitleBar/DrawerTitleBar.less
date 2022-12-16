@@ -1,0 +1,52 @@
+@import 'Global.less';
+
+@drawer-header-height: 48px;
+
+.DrawerTitleBar {
+  align-items: center;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 15% 1fr 15%;
+  height: @drawer-header-height;
+  padding: 0 10px;
+
+  &.Shadow {
+    box-shadow: @lower-card-shadow;
+  }
+
+  .Title {
+    align-items: center;
+    color: @black-alpha-dark;
+    display: flex;
+    font-size: @font-size-small;
+    font-weight: 800;
+    gap: 8px;
+    grid-column: 2/3;
+    justify-content: center;
+    line-height: 16px;
+    overflow: hidden;
+    text-transform: uppercase;
+
+    .TitleIcon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    .TitleLabel {
+      min-width: 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .Action {
+    justify-self: end;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

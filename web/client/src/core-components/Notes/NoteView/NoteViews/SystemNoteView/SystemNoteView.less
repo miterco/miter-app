@@ -1,0 +1,48 @@
+@import 'Global.less';
+
+.SystemNote {
+  text-align: center;
+  padding: 0 8px;
+  margin: 12px 0 0 0;
+  font-size: @font-size-small;
+  color: @black-alpha-dark;
+  border-width: 1px 0 0 0;
+  border-style: solid;
+  border-color: @black-alpha-lighter;
+  background: linear-gradient(rgba(0, 0, 0, 0.015), transparent 16px);
+
+  &:last-child {
+    border-width: 0;
+  }
+}
+
+.TopicChange {
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .ProtocolIcon {
+    height: 14px;
+    fill: @black-alpha-light;
+  }
+
+  .CurrentTopic {
+    margin-left: -2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 800;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+
+    .TopicShape {
+      margin-right: 4px;
+    }
+
+    .TopicText {
+      text-align: left;
+      flex: 1;
+    }
+  }
+}

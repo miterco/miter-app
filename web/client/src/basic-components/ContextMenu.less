@@ -1,0 +1,89 @@
+@import 'Global.less';
+
+@btn-diameter: 36px;
+
+.CtxtMenuCtr {
+  position: relative;
+}
+
+.CtxtMenu {
+  background-color: white;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.12), 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s;
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  margin-top: (-@btn-diameter / 2 - 1);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: (@btn-diameter / 3);
+  overflow: hidden;
+
+  &.Show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  button.Btn {
+    background-color: white;
+    border-width: 0;
+    border-color: transparent;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    min-width: @btn-diameter;
+    height: @btn-diameter;
+    margin: 0;
+    transition: transform 0.2s, background-color 0.2s;
+    border-radius: 0;
+
+    &:first-child,
+    &:last-child {
+      min-width: (@btn-diameter + 2);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+    path {
+      fill: @brand1-med;
+    }
+
+    &.On {
+      background-color: fade(@brand2-bright, 2%);
+      path {
+        fill: @brand2;
+      }
+    }
+    &.On:hover,
+    &.On:focus {
+      background-color: @button-tb-hover-bg-primary;
+      path {
+        fill: @brand2;
+      }
+    }
+
+    &:hover {
+      transform: scale(1);
+      background-color: @button-tb-hover-bg;
+      path {
+        fill: @brand1-dark;
+      }
+    }
+    &:focus {
+      background-color: @button-tb-hover-bg;
+      box-shadow: none;
+    }
+    &:active,
+    &.On:active {
+      background-color: @brand1-med !important;
+      transform: scale(1.05);
+      path {
+        fill: white;
+      }
+    }
+  }
+}

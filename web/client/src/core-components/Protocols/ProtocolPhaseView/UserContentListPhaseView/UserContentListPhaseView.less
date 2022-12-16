@@ -1,0 +1,28 @@
+@import 'Global.less';
+
+.UserContentListPhaseView {
+  .User {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: @font-size-small;
+    margin-bottom: 12px;
+    margin-top: 24px;
+
+    .Avatar {
+      margin-right: 8px;
+    }
+  }
+
+  section:first-child .User {
+    margin-top: 0;
+  }
+}
+
+.ProtocolDrawerFooter_AddItemCard {
+  padding: 0 16px;
+  margin-bottom: -8px;
+  z-index: 2;
+}

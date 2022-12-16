@@ -1,0 +1,78 @@
+@import 'Global.less';
+@import './DrawerTitleBar/DrawerTitleBar.less';
+
+@drawer-border-radius-base: 12px;
+@drawer-box-shadow-position: 0px -8px 20px 0px;
+
+.Drawer {
+  display: flex;
+  justify-content: center;
+
+  &.ant-drawer-bottom > .ant-drawer-content-wrapper {
+    border-top-left-radius: @drawer-border-radius-base;
+    border-top-right-radius: @drawer-border-radius-base;
+    box-shadow: transparent @drawer-box-shadow-position;
+    max-width: 512px;
+    max-height: 900px;
+    overflow: hidden;
+    transform: translateY(100%);
+    transition: all 0.3s ease-in-out;
+    right: auto;
+    left: auto;
+    width: 100%;
+
+    /* 
+     * Allows our custom animations to run instead of Ant's when drawer first appears. Should have no effect on the
+     * drawer in any state other than its initial not-yet-opened one. TODO I suspect we could lean more on Ant built-in
+     * behaviors and eliminate some overrides.
+     */
+    &.ant-drawer-content-wrapper {
+      display: block !important;
+    }
+
+    .ant-drawer-header {
+      display: none;
+    }
+
+    .ant-drawer-body {
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+
+      .Content {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+        overflow-x: hidden;
+      }
+    }
+
+    .ant-drawer-footer {
+      overflow: hidden;
+      padding: 0;
+      padding-top: 10px;
+      border: none;
+
+      .Footer {
+        box-shadow: 0px -1px 2px @black-alpha-xxlight;
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
+
+  &.Expanded,
+  &.Collapsed {
+    .ant-drawer-content-wrapper {
+      box-shadow: @black-alpha-light @drawer-box-shadow-position;
+      transform: translateY(calc(100% - @drawer-header-height)) !important;
+    }
+  }
+
+  &.Expanded {
+    .ant-drawer-content-wrapper {
+      height: calc(100% - 24px) !important;
+      transform: translateY(0%) !important;
+    }
+  }
+}

@@ -1,0 +1,184 @@
+.ant-input,
+.ant-select {
+  color: @miter-primary-color;
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+
+  caret-color: @brand2-bright;
+  background-color: @miter-input-background;
+  transition: height 0.3s ease;
+  border-radius: @miter-border-radius-base;
+  border-color: transparent;
+
+  &::placeholder {
+    color: @black-alpha-med;
+  }
+
+  &:focus,
+  &:active,
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.09);
+    border-color: transparent;
+  }
+  &:focus {
+    border-color: transparent;
+    box-shadow: @focus-shadow;
+  }
+}
+
+.ant-input {
+  padding: 4px 8px;
+}
+
+.ant-input-lg {
+  font-size: @font-size-large;
+  line-height: @line-height-large;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.ant-select-dropdown {
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+  border-radius: @miter-border-radius-base;
+}
+
+.ant-select-item,
+.ant-select-item-empty {
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+  padding: 4px 8px;
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: @brand1-meddark;
+  color: white;
+}
+
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: @black-alpha-lighter;
+}
+
+.ant-picker {
+  color: @miter-primary-color;
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+  border-radius: @miter-border-radius-base;
+  padding: 0 8px;
+}
+
+.ant-picker-panel-container {
+  border-radius: @miter-border-radius-base;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before {
+  border-color: @brand1-med;
+  border-radius: @miter-border-radius-base;
+}
+
+.ant-picker-input > input {
+  border-radius: @miter-border-radius-base;
+  line-height: @miter-line-height-base;
+}
+
+.ant-spin {
+  color: @brand1-dark;
+}
+.ant-spin-dot-item {
+  background-color: @brand1-dark;
+}
+
+.ant-modal {
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+  color: @miter-primary-color;
+}
+.ant-modal-content {
+  border-radius: @miter-border-radius-base;
+}
+.ant-modal-header {
+  border-top-left-radius: @miter-border-radius-base;
+  border-top-right-radius: @miter-border-radius-base;
+  padding: @miter-padding-medlg;
+}
+.ant-modal-header,
+.ant-modal-title {
+  color: @miter-primary-color;
+  font-size: @font-size-large;
+  line-height: @line-height-large;
+  font-weight: 700;
+}
+.ant-modal-body {
+  padding: @miter-padding-medlg;
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+}
+.ant-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 16px;
+
+  button {
+    min-width: 72px;
+  }
+
+  .Error {
+    flex: 1;
+    color: @miter-error-color;
+    text-align: left;
+    font-size: @font-size-small;
+  }
+}
+
+.ant-empty,
+.ant-spin-text {
+  font-size: @font-size-large;
+  line-height: @line-height-large;
+  color: @black-alpha-med;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+.ant-spin-text {
+  margin-top: 16px;
+}
+
+.ant-dropdown {
+  color: @miter-primary-color;
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+}
+
+.ant-dropdown-menu {
+  border-radius: @miter-border-radius-base;
+  box-shadow: @miter-box-shadow-base;
+}
+
+.ant-dropdown-menu-item {
+  padding: 4px 8px;
+  color: @miter-primary-color;
+  font-size: @miter-font-size-base;
+  line-height: 36px;
+}
+
+.ant-dropdown-menu-item-disabled {
+  color: @black-alpha-light;
+}
+
+// TODO I'm not sure this is doing anything...
+.ant-dropdown-menu-item-icon {
+  width: 20px;
+  height: 20px;
+
+  // Give menu items with an icon a bit more space. Will get weird if we mix icons and non-icons.
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.ant-drawer-body {
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+}

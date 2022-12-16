@@ -1,0 +1,308 @@
+@import '~antd/dist/antd.css';
+@import 'react-toastify/dist/ReactToastify.css';
+
+@import 'Global.less';
+
+// Fix content editable not working on Safari.
+[contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* This pair of rules sure looks like you could just combine them into one rule, doesn't it? Don't do it! The whole rule
+ * will fail. According to https://css-tricks.com/almanac/selectors/s/selection/, "When browsers find a part of a select
+ * they don’t understand, they drop the entire thing, so this will fail all the time."
+ */
+*::-moz-selection {
+  color: @miter-primary-color;
+  background: @miter-selection-bg;
+}
+*::selection {
+  color: @miter-primary-color;
+  background: @miter-selection-bg;
+}
+
+html {
+  background: @brand-gradient;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: @font-family;
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+
+  color: @miter-primary-color;
+  background-color: transparent;
+}
+
+p,
+select,
+textarea {
+  color: @miter-primary-color;
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+}
+
+label {
+  font-weight: 700;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+a,
+.ant-picker-dropdown a {
+  color: @miter-link-color;
+
+  &:hover {
+    color: @miter-link-hover-color;
+  }
+}
+
+#appContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  padding: 32px 32px 16px 32px;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+  max-width: 1028px;
+
+  .SignInCard {
+    background-color: @black-alpha-xxlight;
+    border-radius: @miter-border-radius-base;
+    padding: 24px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 8px 16px;
+
+    h3 {
+      font-weight: 800;
+      color: @brand1-dark;
+    }
+
+    p {
+      font-size: @miter-font-size-base;
+    }
+
+    &.Large {
+      margin: 8px 32px;
+
+      h3 {
+        font-size: @font-size-xxlarge;
+        line-height: @line-height-large;
+        color: @brand1-meddark;
+      }
+      p {
+        font-size: @font-size-large;
+        line-height: @line-height-large;
+      }
+    }
+  }
+}
+
+.AppContent {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+}
+
+.Icon {
+  width: 24px;
+  height: 24px;
+}
+
+.Toolbar {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  & > * {
+    margin-left: 8px;
+  }
+  &.LeftTb > * {
+    margin-left: 0;
+    margin-right: 8px;
+  }
+}
+
+.CompoundDateTime {
+  color: @black-alpha-dark;
+
+  span {
+    color: @miter-primary-color;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+}
+
+.Title {
+  color: @black-alpha-dark;
+  font-weight: 400;
+}
+
+/*
+ * At larger window sizes, we use the dark brand gradient as the overall
+ * background. At smaller sizes, we use the lighter background to avoid
+ * box-in-a-box layouts. In some situations, we want a card to surround
+ * the overall layout at larger sizes. I'm calling this a "root card" and
+ * its distinguishing feature is simply that its styling disappears at
+ * smaller sizes.
+*/
+.RootCard {
+  background-color: @root-card-background;
+  border-radius: 8px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08), 0px 3px 5px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.1);
+}
+
+footer.AppFooter {
+  text-align: center;
+  margin-top: 16px;
+  font-size: @font-size-small;
+
+  & > * {
+    margin: 0 12px;
+    color: @miter-link-color-on-dark;
+  }
+}
+
+.EmptyIcon {
+  width: 80px;
+  height: 80px;
+  opacity: 0.33;
+}
+.ant-empty.Error {
+  color: @miter-error-color;
+
+  path {
+    fill: @miter-error-color;
+  }
+}
+
+@media only screen and (max-width: @major-breakpoint) {
+  #appContainer {
+    padding: 0;
+    background-color: @root-card-background;
+  }
+  .App {
+    flex-direction: column;
+  }
+  .RootCard {
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+& *::-webkit-scrollbar {
+  border-radius: 8px;
+  width: 12px;
+}
+& *::-webkit-scrollbar-track {
+  background: transparent;
+}
+& *::-webkit-scrollbar-thumb {
+  background-color: @black-alpha-lighter;
+  border-radius: 6px;
+  border: 1px white solid;
+}
+
+:root {
+  --toastify-color-dark: fade(@brand1-near-black, 80%);
+  --toastify-color-progress-dark: fade(@brand1, 80%);
+  --toastify-toast-width: auto;
+  --toastify-font-family: @font-family;
+}
+.Toast {
+  button.Btn span {
+    font-weight: 700 !important;
+  }
+  max-width: 480px;
+}
+.Toastify__toast {
+  box-shadow: @overlay-shadow;
+  outline: 1px rgba(255, 255, 255, 0.15) solid;
+  backdrop-filter: blur(20px);
+}
+
+:root {
+  --reactour-accent: @black-alpha-light;
+}
+
+.MiterTourMask {
+  color: @black-alpha-light !important;
+}
+.MiterTour {
+  border-radius: 8px;
+
+  .SkipBtn button {
+    font-weight: 500;
+    color: @miter-btn-color;
+    text-transform: uppercase;
+    font-size: @font-size-small;
+  }
+  & > button {
+    // Close button
+    width: auto;
+    height: auto;
+    padding: 0 4px;
+
+    svg {
+      width: 10px;
+      height: 10px;
+
+      path {
+        fill: @black-alpha-med;
+      }
+    }
+  }
+  div button svg {
+    // Other nav buttons
+    color: @miter-btn-color;
+  }
+}
+
+/* Avoids extra padding for message-only toasts */
+.SimpleToast .ant-notification-notice-message {
+  margin-bottom: 0;
+}
+
+.CompoundModalTitle {
+  display: flex;
+  gap: 12px;
+  color: @brand2-dark;
+
+  & > svg {
+    width: 24px;
+    height: 24px;
+  }
+}

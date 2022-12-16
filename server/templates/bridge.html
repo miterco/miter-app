@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Miter</title>
+  </head>
+  <body>
+    <div>Miter Bridge</div>
+    <div id="status">Initial</div>
+    <script src="/client-lib"></script>
+    <script type="text/javascript">
+      if (window.Debug) console.log('Running Miter with debug enabled.');
+
+      // Unlike the client, we don't define or use didMiterLibLoad() here because we're loading in the client lib
+      // synchronously. I believe that should work.
+
+      const bridgeScript = document.createElement('SCRIPT');
+      const params = new URLSearchParams(window.location.search);
+      const bridgeVersion = Number(params.get('v'));
+      if (bridgeVersion) {
+        bridgeScript.setAttribute('src', `/bridge_v${bridgeVersion}.js`);
+        document.body.appendChild(bridgeScript);
+      } else {
+        console.error("Miter bridge requires a version number but didn't get one.");
+      }
+    </script>
+  </body>
+</html>

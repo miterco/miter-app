@@ -1,0 +1,29 @@
+#!/bin/sh
+
+cd `dirname $0`
+cd ..
+
+echo '\n------------------- REMOVING MODULES & PACKAGE LOCKS --------------------'
+rm -rf node_modules */node_modules */*/node_modules
+rm -r package-lock.json */package-lock.json */*/package-lock.json
+
+echo '\n------------------- REINSTALLING ROOT --------------------' &&
+npm install &&
+
+echo '\n------------------- REINSTALLING SERVER --------------------' &&
+cd server &&
+npm install &&
+cd .. &&
+
+echo '\n------------------- REINSTALLING COMMON --------------------' &&
+cd common &&
+npm install &&
+cd .. &&
+
+echo '\n------------------- REINSTALLING CLIENT --------------------' &&
+cd web/client &&
+npm install &&
+npm run build &&
+cd ../.. &&
+
+echo '\nDone.\n'

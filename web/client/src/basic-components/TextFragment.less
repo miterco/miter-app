@@ -1,0 +1,50 @@
+@import 'Global.less';
+
+//-------------------------------------------------------------------------------------------------
+//                                  TEXT FRAGMENT FOR MENTIONS
+//-------------------------------------------------------------------------------------------------
+
+.MentionFragment {
+  font-weight: 600;
+  color: @brand1-dark;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background-color: @black-alpha-xxlight;
+  font-size: 0.95em;
+  white-space: nowrap;
+  display: inline-flex;
+  vertical-align: middle;
+  line-height: 1.5em;
+  margin-bottom: 2px;
+
+  // Vertically align the text of the at-mention with the rest of the text.
+  position: relative;
+  top: 2px;
+
+  .AvatarWrapper {
+    display: inline-flex;
+    align-items: center;
+    width: 20px;
+    margin-right: 2px;
+
+    .Avatar {
+      width: 19px !important;
+      height: 19px !important;
+      min-width: 19px !important;
+      min-height: 19px !important;
+    }
+  }
+
+  .Editing & {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+//-------------------------------------------------------------------------------------------------
+//                                       RAW TEXT FRAGMENT
+//-------------------------------------------------------------------------------------------------
+
+.TextFragment {
+  vertical-align: middle;
+  min-width: 1em;
+}

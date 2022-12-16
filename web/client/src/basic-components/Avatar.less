@@ -1,0 +1,65 @@
+@import 'Global.less';
+
+.AvatarWrapper {
+  display: inline-block;
+}
+
+.ant-avatar {
+  border: 1px rgba(255, 255, 255, 0.8) solid;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+
+  svg {
+    margin-top: 5%;
+    padding: 5%;
+    width: 100%;
+    height: 100%;
+
+    path {
+      fill: rgba(255, 255, 255, 0.67);
+    }
+  }
+
+  &.clickable {
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      border-color: @brand2;
+      box-shadow: @focus-shadow;
+      transform: scale(1.2);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  &.AvatarColor0 {
+    background-color: #98c1e7;
+  }
+  &.AvatarColor1 {
+    background-color: #ebc5a5;
+  }
+  &.AvatarColor2 {
+    background-color: #5d9993;
+  }
+  &.AvatarColor3 {
+    background-color: #7e645a;
+  }
+  &.AvatarColor4 {
+    background-color: #616161;
+  }
+  &.AvatarColor5 {
+    background-color: #945b75;
+  }
+  &.AvatarColor6 {
+    background-color: #60a384;
+  }
+  &.AvatarColor7 {
+    background-color: #8d7296;
+  }
+}

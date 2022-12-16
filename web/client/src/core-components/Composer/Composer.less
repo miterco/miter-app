@@ -1,0 +1,86 @@
+@import 'Global.less';
+
+.Composer {
+  border-radius: @miter-border-radius-base;
+  margin: 8px 0;
+  position: relative;
+  min-height: 40px;
+
+  .ant-select {
+    display: block;
+  }
+
+  .ToggleEdit {
+    padding: 10px 48px 10px 8px;
+    caret-color: @brand2-bright;
+    background-color: rgba(0, 0, 0, 0.07);
+    transition: height 0.4s ease;
+    min-height: 0;
+    flex: 1;
+    font-size: 17px;
+  }
+  .ToggleEdit:focus,
+  .ToggleEdit:active,
+  .ToggleEdit:hover {
+    background-color: rgba(0, 0, 0, 0.09);
+    box-shadow: none;
+  }
+  .ToggleEdit::before {
+    color: @brand2-med;
+  }
+  .ToggleEdit:focus::before {
+    color: fade(@brand2-med, 50%);
+  }
+
+  button.Btn,
+  button.Btn[disabled],
+  button.Btn[disabled]:hover {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    padding: 0;
+    background-color: transparent;
+    border-color: transparent;
+
+    svg {
+      display: block;
+      margin: 6px;
+
+      path,
+      &:hover path {
+        fill: @brand2-med !important;
+      }
+    }
+
+    .Badge {
+      position: absolute;
+      right: 0;
+      bottom: 1px;
+      width: 16px;
+      height: 16px;
+      padding: 2px;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+      svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        margin: 0;
+      }
+    }
+
+    &:hover {
+      background-color: fade(@brand2-bright, 20%);
+    }
+
+    &[disabled] {
+      background-color: transparent;
+
+      path {
+        fill: rgba(0, 0, 0, 0.24);
+      }
+    }
+  }
+}

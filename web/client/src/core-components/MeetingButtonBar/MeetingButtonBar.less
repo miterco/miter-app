@@ -1,0 +1,93 @@
+@import 'Global.less';
+
+.MeetingButtonBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: stretch;
+  gap: 8px;
+  margin: 16px 0 0 0;
+
+  button {
+    padding-left: 12px;
+    padding-right: 12px;
+
+    span {
+      white-space: normal; /* Needed in order for responsive layout to work */
+    }
+
+    &.NextBtn {
+      flex-grow: 1;
+    }
+  }
+
+  &.Compact {
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+
+    button.NextBtn {
+      flex-grow: 0;
+    }
+  }
+
+  &.FullWidth,
+  &.Narrow {
+    justify-content: stretch;
+
+    button.NextBtn {
+      flex-grow: 1;
+    }
+
+    button {
+      padding-left: 4px;
+      padding-right: 4px;
+
+      span .Extended {
+        display: none;
+      }
+    }
+  }
+
+  &.Float {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+
+    button {
+      box-shadow: @miter-box-shadow-base;
+    }
+
+    &.Narrow {
+      margin-right: 16px;
+      margin-left: 16px;
+    }
+  }
+
+  @keyframes pulse {
+    50% {
+      background-color: lighten(fade(@miter-btn-bg-color-primary, 15%), 20%);
+    }
+  }
+
+  button.Pulse:not(:hover):not([disabled]) {
+    animation-name: pulse;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+  }
+}
+
+.SignInPopoverContent {
+  margin: 12px;
+  max-width: 312px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    font-weight: 700;
+  }
+}

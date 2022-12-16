@@ -1,0 +1,72 @@
+  <table class="Header">
+    <tr>
+      <td class="Inner">
+        <div><img class="Logo" width="136" height="54" src="https://cdn.mcauto-images-production.sendgrid.net/75638682e510bcb9/9d860ff0-54fc-44be-875a-b467aea429c8/481x192.png" alt="Miter Logo" /></div>
+        <h1>{{#title}}{{title}}{{/title}}{{^title}}Untitled Meeting{{/title}}</h1>
+        <h2 class="Goal">{{#goal}}Goal: {{goal}}{{/goal}}{{^goal}}None Specified{{/goal}}</h2>
+        <p class="MeetingDate">{{date}}</p>
+      </td>
+      <tr>
+        <td class="ButtonRow">
+          <table class="Button"><tr><td><a href="{{{url}}}">View Summary in Miter</a></td></tr></table>
+        </td>
+      </tr>
+    </tr>
+  </table>
+
+  <table class="Outcomes Sec">
+    <tr>
+      <td class="Inner">
+        {{#summaryItemGroups.length}}
+          {{#summaryItemGroups}}
+            <h2>{{title}}</h2>
+            <table>
+              {{#items}}
+                <tr>
+                  <td class="Bullet"><div><img src="{{{itemIconUrl}}}" width="20" height="20" alt="{{itemIconName}}" title="{{itemIconName}}"/></div></td>
+                  {{> summary-email-protocol}}
+                  {{^protocol}}
+                    <td class="Text">{{#dueDateText}}<b class="DueDate">&nbsp;{{dueDateText}}&nbsp;</b> {{/dueDateText}}{{text}}</td>
+                  {{/protocol}}
+                </tr>
+              {{/items}}
+            </table>
+          {{/summaryItemGroups}}
+        {{/summaryItemGroups.length}}
+        {{^summaryItemGroups.length}}
+          <h2>Outcomes</h2>
+          <p class="Empty"><strong>No outcomes recorded!</strong> Collect outcomes by hovering over a note and marking it as an action
+          item, decision, or starred note.</p>
+        {{/summaryItemGroups.length}}
+      </td>
+    </tr>
+  </table>
+
+  <table class="Notes Sec">
+    <tr>
+      <td class="Inner">
+        <h2>All Notes</h2>
+        {{#noteGroups}}
+          {{#title}}<h3>{{title}}</h3>{{/title}}
+          <table>
+            {{#items}}
+              <tr>
+                <td class="Bullet"><div><img src="http://cdn.mcauto-images-production.sendgrid.net/75638682e510bcb9/6439cd70-7393-4474-8bbe-6dbe834f9556/40x40.png" width="20" height="20" alt="bullet" /></div></td>
+                {{> summary-email-protocol}}
+                {{^protocol}}<td class="Text">{{text}}</td>{{/protocol}}
+              </tr>
+            {{/items}}
+          </table>
+        {{/noteGroups}}
+      </td>
+    </tr>
+  </table> 
+
+  <p>&nbsp;</p>
+
+  <div class="Footer">
+    <table class="Button"><tr><td><a href="{{{url}}}">View Summary in Miter</a></td></tr></table>
+    <p>Miter is the better-meeting assistant: a product that helps you make the most of your meetings. Miter generated 
+    this summary using notes and activity from your meeting. Miter is a tool that helps you make the most of your meetings 
+    and avoid wasted meeting time.</p>
+  </div>

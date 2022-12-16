@@ -1,0 +1,134 @@
+@import 'Global.less';
+
+.ZoomMeetingSelector {
+  &.ant-modal {
+    background: @brand-gradient-desaturated;
+
+    // Set the modal background to cover the entire viewport.
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    width: 100% !important;
+    max-width: 100%;
+
+    // Center the modal in the screen.
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ant-modal-content {
+    // Style the modal box.
+    background: @miter-card-background;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    max-width: 90%;
+    margin: auto;
+
+    .ant-modal-close {
+      // Hide the close button at the top right.
+      display: none;
+    }
+
+    .ant-modal-header {
+      background: transparent !important;
+      border-bottom: none;
+
+      .ant-modal-title {
+        width: 100%;
+        font-weight: 800;
+        font-size: 24px;
+        line-height: 28px;
+      }
+    }
+
+    .ant-modal-body {
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .ant-modal-footer {
+      justify-content: center;
+    }
+  }
+
+  p {
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0 14px 12px 14px;
+  }
+
+  .MeetingList {
+    width: 100%;
+    flex: 1;
+    overflow: auto;
+
+    .CardList {
+      padding-top: 8px;
+      gap: 3px;
+    }
+
+    .SelectedMeeting {
+      border: 1px solid fade(@brand2-bright, 70%);
+    }
+  }
+
+  .CreateMeetingButton {
+    // Spacing.
+    margin: 14px 12px 0px;
+    padding: 12px;
+
+    // Center the content vertically.
+    display: flex;
+    align-items: center;
+
+    // Decorations.
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 100%);
+    box-shadow: @low-card-shadow;
+    border-radius: @miter-border-radius-base;
+
+    // Interaction.
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      box-shadow: @miter-card-shadow;
+      background-color: lighten(@brand1, 46%);
+      transform: translateY(-1px);
+      svg path {
+        fill: @brand1-med;
+      }
+    }
+
+    &.Selected {
+      background-color: lighten(@brand2-bright, 88%, relative) !important;
+      border: 1px solid fade(@brand2-bright, 70%);
+    }
+
+    h4 {
+      margin: 0;
+      font-size: @miter-font-size-base;
+      font-weight: 600;
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin-right: 8px;
+    }
+
+    svg {
+      height: 20px;
+
+      path {
+        fill: @brand2;
+      }
+    }
+  }
+}

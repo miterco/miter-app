@@ -1,0 +1,144 @@
+@import 'Global.less';
+
+div.App .MeetingHeader {
+  margin: 0 0 16px 0;
+  width: 100%;
+
+  .Titlebar {
+    display: flex;
+
+    .DesktopMode & {
+      flex-direction: row-reverse;
+    }
+    .SidebarMode & {
+      flex-direction: column;
+    }
+
+    .TitlebarActions {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+
+      a {
+        line-height: 0;
+      }
+
+      .MiterLogo {
+        height: 28px;
+
+        .DesktopMode & {
+          display: none;
+        }
+      }
+
+      .FacePile {
+        margin-right: 8px;
+
+        .ant-avatar {
+          top: -1px;
+        }
+      }
+
+      button.Invite {
+        margin-left: 16px;
+      }
+    }
+
+    .Toolbar {
+      margin-top: -4px;
+    }
+
+    // Meeting title.
+    h1 {
+      min-height: 32px;
+      font-size: @font-size-xlarge;
+      line-height: @line-height-large;
+      flex: 1;
+      margin: 4px 0 0 -8px;
+      padding: 4px 8px;
+      font-weight: 800;
+      color: @miter-primary-color;
+      width: 100%;
+
+      .DesktopMode & {
+        margin-top: -8px;
+        margin-right: 12px;
+      }
+
+      &::placeholder {
+        color: @black-alpha-med;
+      }
+
+      &:hover {
+        background-color: @black-alpha-xxlight;
+      }
+
+      &.Editing {
+        background-color: @black-alpha-lighter;
+        outline: transparent;
+        border: 0;
+      }
+    }
+  }
+
+  // Meeting date.
+  h2.Date,
+  h2.Date div.CompoundDateTime {
+    text-transform: uppercase;
+    font-size: @font-size-medium;
+    line-height: @line-height-medium;
+    font-weight: 700;
+    color: @black-alpha-med;
+    margin-bottom: 0;
+
+    span {
+      font-weight: 800;
+      color: @black-alpha-dark;
+    }
+  }
+
+  .TabBar {
+    width: 100%;
+    margin-top: 12px;
+  }
+  .Tab {
+    flex: 1;
+    text-align: center;
+    font-weight: 800;
+    color: @black-alpha-med;
+    line-height: 20px;
+    border-width: 0 0 1px 0;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    margin: 0 8px;
+    padding: 4px 8px;
+    margin-bottom: 3px;
+
+    &.active {
+      border-width: 0 0 4px 0;
+      border-radius: 0 0 2px 2px;
+      color: @brand1-med;
+      border-color: @brand1;
+      margin-bottom: 0;
+    }
+  }
+
+  .MeetingBar {
+    background-color: @miter-card-background;
+    border-radius: @miter-border-radius-base;
+
+    .ActionBar {
+      border-top: 1px @black-alpha-lighter solid;
+
+      button {
+        font-size: @font-size-small;
+        line-height: @line-height-small;
+      }
+    }
+  }
+}
+
+.PriorMeetingMenuItem {
+  padding: 0 4px;
+  line-height: 24px;
+}

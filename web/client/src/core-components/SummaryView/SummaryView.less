@@ -1,0 +1,60 @@
+@import 'Global.less';
+
+.MeetingContent.Summary {
+  .Card {
+    & > header {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    &:last-child {
+      margin-bottom: 4px;
+    }
+  }
+
+  .SummaryList {
+    header {
+      padding-top: 12px;
+
+      div {
+        min-width: 128px; // TODO Stopgap until we debug sticky-header issues
+        text-align: center;
+        background-color: white;
+        box-shadow: @box-shadow-small;
+        color: @miter-primary-color;
+      }
+    }
+  }
+
+  .Empty {
+    .ant-empty-image {
+      height: 24px;
+    }
+
+    .ant-empty-description {
+      font-size: @font-size-small;
+      line-height: @line-height-small;
+      font-weight: 600;
+      color: @black-alpha-light;
+    }
+  }
+
+  .ShowNotesBtn {
+    margin: 16px auto;
+  }
+}
+
+.DetailMenuItem {
+  div {
+    font-weight: 500;
+  }
+  small {
+    display: block;
+    max-width: 300px;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 2px;
+    white-space: normal;
+    color: @black-alpha-dark;
+  }
+}

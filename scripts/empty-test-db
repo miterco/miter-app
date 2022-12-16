@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Kill all connections to the database before resetting it.
+psql -U miter miter-test < ./scripts/kill-active-connections.sql
+
+# Recreate the miter-test database.
+dropdb miter-test
+createdb -O miter miter-test
+
+# Create the tables and save the test data.
+psql -U miter miter-test < ./scripts/create-db-tables.sql
+psql -U miter miter-test < ./scripts/populate-test-data.sql

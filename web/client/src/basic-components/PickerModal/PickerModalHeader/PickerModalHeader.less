@@ -1,0 +1,54 @@
+@import 'Global.less';
+
+.PickerModalHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .Grid {
+    display: grid;
+    grid-template-columns: 20px 1fr 20px;
+    grid-gap: 6px;
+  }
+
+  .Action {
+    height: 24px;
+    min-width: 24px;
+
+    svg {
+      margin: 0;
+      height: 20px;
+    }
+  }
+
+  .Title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    grid-column: 2/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    color: black;
+  }
+
+  .Description {
+    // Text.
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    text-align: center;
+    color: @black-alpha-dark;
+
+    // Layout.
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    svg {
+      height: 16px; // Prevents the description from wrapping when there's an icon present.
+    }
+  }
+}

@@ -1,0 +1,56 @@
+@import 'Global.less';
+
+.ToggleEdit {
+  border-radius: @miter-border-radius-base;
+  border-width: 0;
+  text-align: left;
+  word-wrap: break-word; /* This doesn't seem to do much in my click testing but overflow-wrap: anywhere isn't supported by Safari */
+  overflow-wrap: anywhere;
+  white-space: normal;
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+
+  &.HoverHighlight:hover[contentEditable='false'],
+  &.HoverHighlight:focus[contentEditable='false'] {
+    background-color: @black-alpha-xxlight;
+    outline: 0;
+  }
+
+  &[contentEditable='true'] {
+    outline-width: 0;
+    background-color: @black-alpha-lighter;
+  }
+
+  &:empty:before {
+    content: attr(placeholder);
+    color: @black-alpha-med;
+  }
+
+  &.NoVal {
+    opacity: 0.6;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &.Editing:focus {
+    box-shadow: @focus-shadow;
+    outline: 0;
+    cursor: text;
+    white-space: break-spaces;
+  }
+
+  a {
+    word-break: break-word;
+  }
+}
+
+div.ToggleEditSelect {
+  background-color: transparent;
+  cursor: text;
+
+  &:hover {
+    background-color: transparent;
+  }
+}

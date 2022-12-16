@@ -1,0 +1,52 @@
+@import 'Global.less';
+
+.IntroModal {
+  .ant-modal-content {
+    border: 1px solid @black-alpha-lighter;
+  }
+  .ant-modal-body {
+    overflow: hidden;
+    padding: 36px 24px 24px 24px;
+  }
+
+  .Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .Header {
+      display: flex;
+      flex-direction: column;
+
+      justify-content: center;
+      gap: 12px;
+
+      svg {
+        height: 72x;
+        display: block;
+
+        path {
+          fill: @brand1-med;
+        }
+      }
+
+      .Title {
+        color: #082526;
+        font-size: @font-size-xxlarge;
+        font-weight: 800;
+        line-height: @line-height-large;
+        text-align: center;
+        margin: 0;
+      }
+    }
+
+    p {
+      margin-bottom: 8px;
+    }
+
+    .ButtonIcon {
+      height: 18px;
+    }
+  }
+}

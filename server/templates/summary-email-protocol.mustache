@@ -1,0 +1,17 @@
+{{#protocol}}
+<td class="Protocol">
+  <b class="ProtocolType">{{type}}</b>
+  {{title}}
+
+  {{#caption}}<h4>{{caption}}</h4>{{/caption}}
+
+  <table class="Items{{^caption}} NoCaption{{/caption}}">
+    {{#items}}
+      <tr>
+        <td class="Bullet"><div><img src="https://cdn.mcauto-images-production.sendgrid.net/75638682e510bcb9/6439cd70-7393-4474-8bbe-6dbe834f9556/40x40.png" width="20" height="20" alt="bullet" /></div></td>
+        <td class="Text">{{.}}</td>
+      </tr>
+    {{/items}}
+  </table>
+</td>
+{{/protocol}}

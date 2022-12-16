@@ -1,0 +1,65 @@
+@import 'Global.less';
+
+.Note {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 6px 8px;
+  margin: 2px 0;
+  position: relative;
+
+  &.Pinned {
+    background-color: fade(@brand2-bright, 4%);
+
+    &:hover {
+      background-color: fade(@brand2-bright, 7%);
+    }
+
+    .Timestamp {
+      color: fade(@brand2, 75%);
+    }
+  }
+
+  & > * {
+    margin-right: 4px;
+  }
+
+  &:hover {
+    background-color: @hover-background;
+  }
+
+  .Status {
+    margin-top: 4px;
+    margin-right: 6px;
+    position: relative;
+
+    svg,
+    .Dot {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+
+    path {
+      fill: @brand2-med;
+    }
+
+    .Dot {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .Content {
+    flex-grow: 1;
+    padding: 4px 8px;
+    margin: 1px 4px;
+  }
+
+  .ant-select {
+    flex-grow: 1; // Prevents the AutoComplete component from centering the item.
+  }
+}

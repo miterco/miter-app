@@ -1,0 +1,43 @@
+@import 'Global.less';
+
+@btn-color: fade(@miter-primary-color, 67%);
+
+.ActionBar {
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+
+  div.Group {
+    display: flex;
+    flex-direction: row;
+
+    &.R {
+      flex: 1;
+      justify-content: flex-end;
+    }
+  }
+
+  button.Btn.BarItem {
+    span {
+      font-weight: 500;
+      color: @btn-color;
+    }
+
+    svg {
+      margin-right: 8px;
+
+      path {
+        fill: @btn-color;
+      }
+    }
+
+    &:hover {
+      transform: scale(1);
+    }
+  }
+}
+
+.ant-dropdown-menu .ItemDivider {
+  padding: 0;
+  margin: 0;
+}

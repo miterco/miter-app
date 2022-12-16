@@ -1,0 +1,24 @@
+@import 'Global.less';
+
+.AppHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 100%;
+  margin-bottom: 18px;
+
+  > .MiterLogo {
+    svg {
+      height: 35px;
+
+      path {
+        fill: white;
+      }
+    }
+  }
+
+  .SidebarMode & {
+    margin-bottom: 0;
+  }
+}

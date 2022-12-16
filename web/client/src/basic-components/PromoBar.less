@@ -1,0 +1,105 @@
+@import 'Global.less';
+
+.PromoBarWrapper {
+  width: 100%;
+}
+
+.PromoBar {
+  // Layout.
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+
+  // Size & spacing.
+  width: fit-content;
+  min-height: 56px;
+  padding: 12px 16px;
+
+  // Center the promo bar.
+  position: fixed;
+  left: 50%;
+  top: -100px;
+  transform: translate(-50%, 0);
+  transition: transform 0.3s ease-out;
+
+  // Decorations.
+  background: @brand2-lightest;
+  box-shadow: @miter-card-shadow;
+  border-radius: 8px;
+
+  // Text.
+  font-weight: bold;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  &.visible {
+    transform: translate(-50%, 116px);
+  }
+
+  .SidebarMode & {
+    // Color-scheme.
+    background: @brand2;
+    color: white;
+
+    // Position and layout.
+    position: inherit;
+    width: 100%;
+    border-radius: 0;
+    flex-grow: 1;
+    transform: none;
+    margin-top: -100px;
+    transition: all 0.3s ease-out;
+
+    // Spacing.
+    justify-content: space-between;
+    gap: 12px;
+
+    // Interaction.
+    cursor: pointer;
+
+    &:hover {
+      background: lighten(@brand2, 4%);
+    }
+
+    &.visible {
+      margin-top: 0px;
+    }
+
+    .Content {
+      flex-grow: 1;
+      white-space: pre-line;
+    }
+
+    // Icons.
+    svg {
+      width: 24px;
+      height: 24px;
+      margin: 0;
+      flex-shrink: 0;
+
+      path {
+        // White icons.
+        color: white;
+      }
+    }
+
+    .CloseButton {
+      padding: 0;
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      position: relative;
+
+      svg {
+        transform: translateY(2px);
+      }
+    }
+  }
+}

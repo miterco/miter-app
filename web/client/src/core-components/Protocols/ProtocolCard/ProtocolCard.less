@@ -1,0 +1,257 @@
+@import 'Global.less';
+
+.ProtocolCardWrapper {
+  margin-bottom: 8px;
+  width: 100%;
+
+  .IsDraggable .ProtocolCard.VoteMode {
+    cursor: grab;
+  }
+
+  .ProtocolCard {
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.3);
+    display: grid;
+    gap: 8px 12px;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+      'start header end'
+      'start center end'
+      'start footer end';
+    padding: 8px 12px;
+    transition: all 0.2s ease-in-out;
+    word-break: break-word;
+
+    .Header {
+      color: @brand1-dark;
+      font-weight: 800;
+      font-size: @font-size-small;
+      grid-area: header;
+      line-height: @line-height-small;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .Start {
+      align-items: center;
+      display: flex;
+      grid-area: start;
+
+      .HandleContainer {
+        padding: 4px 8px;
+      }
+
+      .Handle {
+        display: block;
+        height: 24px;
+        width: 4px;
+        background: rgba(0, 0, 0, 0.12);
+        border-radius: 2px;
+        margin-left: 4px;
+      }
+    }
+
+    .Body {
+      align-items: center;
+      display: flex;
+      grid-area: center;
+      font-size: @font-size-medium;
+      font-weight: 400;
+      line-height: @line-height-large;
+    }
+
+    .End {
+      align-items: center;
+      display: flex;
+      grid-area: end;
+      margin-right: 12px;
+    }
+
+    .Footer {
+      grid-area: footer;
+      margin-bottom: 0;
+      .FooterButton {
+        margin-left: -4px;
+        padding-right: 12px;
+        color: @black-alpha-dark;
+
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .Badge {
+      align-items: center;
+      aspect-ratio: 1/1;
+      background: #00000014;
+      border: solid 1px @black-alpha-lighter;
+      border-radius: 50%;
+      color: @black-alpha-light;
+      display: flex;
+      font-size: @font-size-small;
+      font-weight: 800;
+      justify-content: center;
+      line-height: @line-height-small;
+      width: 24px;
+      transition: all 0.2s ease-in-out;
+      white-space: nowrap;
+    }
+
+    .ProtocolCardInputToggleEdit {
+      background-color: transparent;
+      width: 100%;
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    &.ViewMode {
+      padding: 2px 12px;
+      &.Editable {
+        cursor: pointer;
+      }
+    }
+
+    &.EditMode {
+      padding: 1px 12px;
+      background: @black-alpha-lighter;
+      cursor: text;
+      box-shadow: none;
+      border: 1px solid @black-alpha-lighter;
+
+      &.Focused {
+        border-color: @brand2-bright;
+      }
+
+      .SubmitButtonIcon path {
+        fill: @brand2-med;
+      }
+    }
+
+    &.PreviewMode {
+      gap: 8px 0;
+      padding: 12px;
+
+      > .Body {
+        font-size: @font-size-large;
+      }
+    }
+
+    &.PreviewEditMode {
+      > .Body {
+        font-size: @font-size-large;
+      }
+
+      &:not(:focus) {
+        box-shadow: none;
+      }
+    }
+
+    &.VoteMode {
+      cursor: pointer;
+      padding: 2px 12px 2px 2px;
+
+      &.Checked {
+        background: @brand1-lightest;
+        .Badge {
+          background-color: @brand1;
+          color: white;
+        }
+      }
+
+      &.Disabled {
+        cursor: default;
+      }
+
+      &:hover {
+        background-color: fade(@brand1-lightest, 50%);
+      }
+    }
+
+    &.VoteSummaryMode {
+      padding: 1px 11px 1px 2px;
+
+      &.Checked {
+        background: @brand1-lightest;
+        .Badge {
+          background-color: @brand1-med;
+          color: white;
+        }
+      }
+    }
+
+    &.VoteSummaryMode.Reprioritized,
+    &.VoteMode.Reprioritized {
+      &:not(.Deprioritized) {
+        background: #f8f2ff;
+      }
+
+      .Badge {
+        background-color: #9466cc; // TODO: Create a new variable brand color?
+        color: white;
+      }
+    }
+  } // .ProtocolCard
+
+  &.WithDropdown {
+    cursor: pointer;
+    &.Focused {
+      .ProtocolCard {
+        background: @brand2-lightest;
+        border: 1px solid @brand2-med;
+      }
+    }
+  }
+}
+
+.ProtocolCardDropdownMenu {
+  width: 187px;
+  margin: auto;
+}
+
+.Brainstorm {
+  .ProtocolCardWrapper {
+    .ProtocolCard {
+      border-radius: @brainstorm-card-border-radius;
+      background-color: @brainstorm-color-yellow-bg;
+      box-shadow: @brainstorm-protocard-box-shadow-yellow;
+
+      // TODO: This padding is temporary--we'll remove again when we switch protocards to flexbox.
+      &.ViewMode,
+      &.EditMode {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .Body {
+        font-family: @brainstorm-font;
+        font-size: @brainstorm-font-size;
+        color: @brainstorm-color-yellow-fg;
+      }
+
+      &.EditMode {
+        background-color: @brainstorm-color-yellow-bg-light;
+        box-shadow: none;
+      }
+
+      &.VoteMode {
+        &.Checked {
+          background: @brainstorm-color-yellow-bg;
+        }
+
+        &:hover {
+          background-color: darken(@brainstorm-color-yellow-bg, 4%);
+        }
+      }
+
+      &.VoteSummaryMode {
+        &.Checked {
+          background: @brainstorm-color-yellow-bg;
+        }
+      }
+    }
+  }
+}

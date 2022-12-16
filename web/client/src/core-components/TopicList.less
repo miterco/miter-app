@@ -1,0 +1,48 @@
+@import 'Global.less';
+
+.TopicList {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    border-radius: @miter-border-radius-base;
+    margin: 4px 0;
+  }
+
+  footer {
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .TopicView {
+      flex: 1;
+    }
+
+    button.AddBtn {
+      color: @miter-btn-default-ghost-color;
+      min-height: 40px;
+      padding: 2px;
+      margin: 4px 0 0 0;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 14px;
+        path {
+          fill: @miter-btn-default-ghost-color !important;
+        }
+      }
+    }
+
+    button.CopyPriorBtn {
+      margin-right: 4px;
+    }
+  }
+}

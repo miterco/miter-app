@@ -1,0 +1,72 @@
+@import 'Global.less';
+
+@num-background: lighten(desaturate(@brand2-muted, 10%), 40%);
+
+.TopicView {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 8px 12px;
+  margin-left: -4px;
+  min-height: 48px;
+  gap: 12px;
+  border-radius: @miter-border-radius-base;
+
+  .ToggleEdit {
+    flex: 1;
+    padding: 6px 0;
+    cursor: move;
+    user-select: none;
+  }
+
+  .Sig {
+    padding-top: 3px;
+  }
+
+  .Num {
+    width: 26px;
+    height: 26px;
+    line-height: 24px;
+    text-align: center;
+    background: @num-background;
+    border: 1px darken(@num-background, 5%) solid;
+    color: desaturate(@brand2-muted, 10%);
+    font-weight: bold;
+    border-radius: 50%;
+  }
+
+  .TopicShape {
+    width: 26px;
+    height: 26px;
+    margin-right: 4px;
+    margin-top: 2px;
+  }
+
+  .AvatarWrapper {
+    display: none;
+  }
+
+  button.OverflowBtn {
+    display: none;
+
+    svg {
+      margin: 0 4px;
+    }
+  }
+
+  &.Current .ToggleEdit {
+    font-weight: 700;
+    color: @brand2-dark;
+  }
+
+  &:hover {
+    .TopicShape,
+    .Num {
+      display: none;
+    }
+    .AvatarWrapper,
+    .OverflowBtn {
+      display: flex;
+    }
+  }
+}

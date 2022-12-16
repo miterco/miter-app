@@ -1,0 +1,52 @@
+@import 'Global.less';
+
+@circle-size: 24px;
+
+.Steps {
+  display: flex;
+  align-items: center;
+
+  .Step {
+    align-items: center;
+    border: solid 1px @brand1;
+    border-radius: @circle-size;
+    color: @miter-primary-color;
+    display: flex;
+    font-size: @font-size-small;
+    font-weight: 600;
+    height: @circle-size;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    white-space: nowrap;
+
+    .StepTitle {
+      display: block;
+      font-weight: 800;
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+    }
+
+    &:not(.Expanded) {
+      flex-basis: @circle-size;
+      flex-shrink: 0;
+    }
+
+    &.Expanded {
+      background-color: rgba(@brand1, 0.1);
+      border-width: 2px;
+      font-weight: 800;
+      padding: 4px 8px;
+    }
+  }
+
+  .HorizontalBar {
+    border: solid 0.5px rgba(black, 0.08);
+    flex-basis: 100%;
+
+    &.InBetween {
+      border-color: @brand1;
+      flex-basis: 32px;
+      flex-shrink: 0;
+    }
+  }
+}

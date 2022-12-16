@@ -1,0 +1,626 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_WITH_CONNECTIONS")
+}
+
+enum ItemType {
+  None
+  Task
+  Decision
+  Pin
+}
+
+enum TaskProgressType {
+  None
+  Completed
+	@@map("TaskProgress")
+}
+
+enum SystemMessageType {
+  StandardNote
+  CurrentTopicSet
+  Protocol
+}
+
+enum MeetingPhase {
+  NotStarted
+  InProgress
+  Ended
+}
+
+enum ProductSurface {
+  Unknown
+  WebApp
+  ChromeExtension
+  ZoomApp
+}
+
+model emailAddress {
+  id                   String                @id @default(dbgenerated("public.gen_random_uuid()")) @map("email_address_id") @db.Uuid
+  personId             String                @map("person_id") @db.Uuid
+  domainName               String?          @map("domain")
+  domainId            String?               @map("domain_id") @db.Uuid
+  bounced              Boolean?              @default(false)
+  emailAddress         String                @unique @map("email_address")
+  serviceId            String?               @map("service_id")
+  domain         domain?         @relation(fields: [domainId], references: [id])
+  person               person                @relation(fields: [personId], references: [id])
+  calendarEvent_person calendarEventPerson[]
+
+  @@map(name: "email_addresses")
+}
+
+model calendarEventPerson {
+  id                          String        @id @default(dbgenerated("public.gen_random_uuid()")) @map("calendar_event_person_id") @db.Uuid
+  calendarEventId             String        @unique @map("calendar_event_id") @db.Uuid
+  personId                    String        @map("person_id") @db.Uuid
+  personEmailId               String        @map("person_email_id") @db.Uuid
+  responseStatus              String?       @map("response_status")
+  optional                    Boolean?
+  calendarEventPersonSettings Json?         @map("calendar_event_person_settings")
+  calendarEvent               calendarEvent @relation(fields: [calendarEventId], references: [id])
+  emailAddress                emailAddress  @relation(fields: [personEmailId], references: [id])
+  person                      person        @relation(fields: [personId], references: [id])
+
+  @@unique([calendarEventId, personId, personEmailId], name: "calendarEventPersonEmail")
+  @@map(name: "calendar_event_people")
+}
+
+model calendarEvent {
+  id                       String                  @id @default(dbgenerated("public.gen_random_uuid()")) @map("calendar_event_id") @db.Uuid
+  recurringCalendarEventId String?                 @map("recurring_calendar_event_id") @db.Uuid
+  meetingId                String                  @unique @map("meeting_id") @db.Uuid
+  userId                   String?                 @map("user_id")
+  title                    String?
+  subject                  String?
+  goal                     String?
+  createdAt                DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)
+  debug                    Boolean                 @default(false)
+  serviceId                String?                 @unique @map("service_id")
+  description              String?
+  info                     Json?                   @db.Json
+  historical               Boolean?                @default(false)
+  startDate                DateTime?               @map("start_date") @db.Date
+  startTime                DateTime?               @map("start_time") @db.Timestamptz(6)
+  endDate                  DateTime?               @map("end_date") @db.Date
+  endTime                  DateTime?               @map("end_time") @db.Timestamptz(6)
+  calendarEvent_person     calendarEventPerson[]
+  meeting                  meeting                 @relation(fields: [meetingId], references: [id])
+  recurringCalendarEvent   recurringCalendarEvent? @relation(fields: [recurringCalendarEventId], references: [id])
+
+
+  @@map(name: "calendar_events")
+}
+
+model domain {
+  id                      String        @id @default(dbgenerated("public.gen_random_uuid()")) @map("domain_id") @db.Uuid
+  name                   String      @unique @map("domain_name")
+  organizationId          String?        @db.Uuid @map("organization_id")
+
+  emailAddress            emailAddress[]
+  organization            organization? @relation(fields: [organizationId], references: [id])
+
+  @@map(name: "domains")
+}
+
+model meeting {
+  id                     String          @id @default(dbgenerated("public.gen_random_uuid()")) @map("meeting_id") @db.Uuid
+  organizationId         String?          @db.Uuid @map("organization_id")
+  meetingSeriesId        String?         @map("meeting_series_id") @db.Uuid
+  isFirstMeetingInSeries Boolean         @default(true) @map("is_first_meeting_in_series") @db.Boolean
+  currentTopicId         String?         @unique @map("current_topic_id") @db.Uuid
+  currentProtocolId      String?         @unique @map("current_protocol_id") @db.Uuid
+  title                  String?         @map("subject")
+  goal                   String?
+  isTemplate             Boolean         @map("is_template") @db.Boolean @default (false)
+  isSampleMeeting        Boolean         @map("is_sample_meeting") @db.Boolean @default(false)
+  isGoalExempt           Boolean?        @map("is_goal_exempt") @db.Boolean @default(false) // TODO consider making non-nullable later
+  createdDate            DateTime?       @default(now()) @map("created_date") @db.Timestamptz(6)
+  allDay                 Boolean         @default(false) @map("all_day_meeting") @db.Boolean
+  startDatetime          DateTime?       @map("start_datetime") @db.Timestamptz(6)
+  endDatetime            DateTime?       @map("end_datetime") @db.Timestamptz(6)
+  calendarEvent          calendarEvent? //  NOTE THIS MAKES THE RELATIONSHIP 1-1. meeting[] would be 1-many
+  note                   note[]
+  summaryItem            summaryItem[]
+  meetingPerson          meetingPerson[]
+  meetingToken           meetingToken[]
+  topics                 topic[]         @relation("AddedTopics")
+  currentTopic           topic?          @relation(name: "CurrentTopic", fields: [currentTopicId], references: [id])
+  phase                  MeetingPhase          @default(NotStarted)
+  meetingSeries          meetingSeries?  @relation(fields: [meetingSeriesId], references: [id])
+  organization           organization?    @relation(fields: [organizationId], references: [id])
+  idleDate               DateTime?       @map("idle_date") @db.Timestamptz(6)
+
+  // Integrations.
+  zoomMeetingId        String? @unique @map("zoom_meeting_id")
+  zoomNumericMeetingId String? @map("zoom_numeric_meeting_id")
+
+  @@map(name: "meetings")
+}
+
+model meetingPerson {
+  id        String  @id @default(dbgenerated("public.gen_random_uuid()")) @map("meeting_person_id") @db.Uuid
+  meetingId String  @map("meeting_id") @db.Uuid
+  personId  String  @map("person_id") @db.Uuid
+  attended  Boolean
+  person    person  @relation(fields: [personId], references: [id])
+  meeting   meeting @relation(fields: [meetingId], references: [id])
+
+  @@unique([meetingId, personId], name: "meetingIdPersonId")
+  @@map(name: "meeting_people")
+}
+
+model meetingToken {
+  id             String   @id @default(dbgenerated("public.gen_random_uuid()")) @map("meeting_token_id") @db.Uuid
+  meetingId      String   @map("meeting_id") @db.Uuid
+  value          String   @default(dbgenerated("public.gen_random_uuid()")) @map("token_value")
+  expirationDate DateTime @default("2300-01-01T00:00:00-00:00") @map("expiration_date") @db.Timestamptz(6)
+  meeting        meeting  @relation(fields: [meetingId], references: [id])
+
+  @@map(name: "meeting_tokens")
+}
+
+model note {
+  // IDs.
+  id                   String                 @id @default(dbgenerated("public.gen_random_uuid()")) @map("notes_id") @db.Uuid
+  meetingId            String                 @map("meeting_id") @db.Uuid
+  topicId              String?                @map("topic_id") @db.Uuid
+  ownerId              String?                @map("owner_id") @db.Uuid
+  protocolId           String?                @map("protocol_id") @db.Uuid
+  createdBy            String?                @map("created_by") @db.Uuid
+
+  // Entity data.
+  systemMessageType    SystemMessageType      @map("system_message_type") @default(StandardNote)
+  itemText             String                 @map("note_text")
+  itemType             ItemType               @default(None) @map("note_type")
+  timestamp            DateTime               @default(now()) @map("note_timestamp")
+  targetDate           DateTime?              @map("target_date") @db.Date
+
+  // Relations.
+  topic                topic?                 @relation(fields: [topicId], references: [id])
+  meeting              meeting                @relation(fields: [meetingId], references: [id])
+  owner                person?                @relation(fields: [ownerId], references: [id])
+  creator              user?                  @relation(fields: [createdBy], references: [id])
+  protocol             protocol?              @relation(fields: [protocolId], references: [id])
+  itemAssociatedPerson itemAssociatedPerson[]
+
+  @@map(name: "notes")
+}
+
+model itemAssociatedPerson {
+  // Fields.
+  id            String  @id @default(dbgenerated("public.gen_random_uuid()")) @map("item_associated_person_id") @db.Uuid
+  personId      String  @map("person_id") @db.Uuid
+  personEmailId String? @map("person_email_id") @db.Uuid
+  noteId        String? @map("note_id") @db.Uuid
+  summaryItemId String? @map("summary_item_id") @db.Uuid
+
+  // Relations.
+  person      person       @relation(fields: [personId], references: [id])
+  note        note?        @relation(fields: [noteId], references: [id])
+  summaryItem summaryItem? @relation(fields: [summaryItemId], references: [id])
+
+  // Metadata.
+  @@map(name: "item_associated_people")
+}
+
+model organization {
+  id                                        String         @id @default(dbgenerated("public.gen_random_uuid()")) @map("organization_id") @db.Uuid
+  name                                      String
+  paidCustomer                              Boolean        @default(false) @map("paid_customer")
+  isLocked                               Boolean        @default(false) @map("lock_meetings")
+  hubspotId                                 String?        @unique @map("hubspot_id")
+  linkedinCompanyUrlSuffix                  String?        @unique @map("linkedin_company_url_suffix")
+  firstSignedUpUserId                       String?         @map("first_signed_up_user_id") @db.Uuid
+  person                                    person[]
+  domain                                    domain[]
+  meeting                                   meeting[]
+  user                                      user[]        @relation("OrgUsers")
+  firstSignedUpUser                         user?         @relation("FirstOrgUser", fields: [firstSignedUpUserId], references: [id])
+
+  @@map(name: "organizations")
+}
+
+model person {
+  id                   String                 @id @default(dbgenerated("public.gen_random_uuid()")) @map("person_id") @db.Uuid
+  displayName          String                 @map("display_name")
+  organizationId       String?                @map("organization_id") @db.Uuid
+  serviceId            String?                @unique @map("service_id")
+  picture              String?
+  lastInvitedDate       DateTime?              @map("last_invited_date") @db.Date
+
+  // Relations.
+  organization         organization?          @relation(fields: [organizationId], references: [id])
+
+  emailAddress            emailAddress[]
+  calendarEvent_person    calendarEventPerson[]
+  itemAssociatedPerson    itemAssociatedPerson[]
+  meetingPerson           meetingPerson[]
+  user                    user[]                 @relation("personTousers_person_id")
+  note                    note[]
+  summaryItem             summaryItem[]
+  
+
+  @@map(name: "people")
+}
+
+model recurringCalendarEvent {
+  id              String          @id @default(dbgenerated("public.gen_random_uuid()")) @map("recurring_calendar_event_id") @db.Uuid
+  serviceId       String?         @unique @map("service_id")
+  meetingSeriesId String          @map("meeting_series_id") @db.Uuid
+  startDate       DateTime?       @map("start_date") @db.Date
+  endDate         DateTime?       @map("end_date") @db.Date
+  startTimezone   String?         @map("start_timezone")
+  endTimezone     String?         @map("end_timezone")
+  frequency       String?
+  recurrenceRule  Json?           @map("recurrence_rule") @db.Json
+  calendarEvent   calendarEvent[]
+  meetingSeries   meetingSeries   @relation(fields: [meetingSeriesId], references: [id])
+
+  @@map(name: "recurring_calendar_events")
+}
+
+model meetingSeries {
+  id    String  @id @default(dbgenerated("public.gen_random_uuid()")) @map("meeting_series_id") @db.Uuid
+  title String? @map("series_title")
+
+  recurringCalendarEvent recurringCalendarEvent[]
+  meeting                meeting[]
+
+  @@map(name: "meeting_series")
+}
+
+model topic {
+  id          String        @id @default(dbgenerated("public.gen_random_uuid()")) @map("topic_id") @db.Uuid
+  meetingId   String        @unique @map("meeting_id") @db.Uuid
+  createdBy   String?       @map("created_by") @db.Uuid
+  text        String        @map("topic_text")
+  order       Float         @default(dbgenerated("nextval('topic_order_sequence')")) @map("topic_order")
+  note        note[]
+  summaryItem summaryItem[]
+  meeting     meeting       @relation(name: "AddedTopics", fields: [meetingId], references: [id])
+  currentedBy meeting?      @relation("CurrentTopic")
+  creator   user?         @relation(fields: [createdBy], references: [id])
+
+  @@map(name: "topics")
+}
+
+model summaryItem {
+  // IDs.
+  id               String    @id @default(dbgenerated("public.gen_random_uuid()")) @map("summary_item_id") @db.Uuid
+  meetingId        String?   @map("meeting_id") @db.Uuid
+  topicId          String?   @map("topic_id") @db.Uuid
+  noteId           String?   @unique @map("note_id") @db.Uuid
+  protocolId       String?   @map("protocol_id") @db.Uuid
+  itemOwnerId      String?   @map("item_owner_id") @db.Uuid
+  createdBy        String?   @map("created_by") @db.Uuid
+
+  // Entity data.
+  systemMessageType    SystemMessageType      @map("system_message_type") @default(StandardNote)
+  itemType         ItemType   @default(None) @map("item_type")
+  targetDate       DateTime? @map("target_date") @db.Date
+  itemOrder        Int?      @map("item_order")
+  itemText         String?   @map("item_text")
+  itemText2        String?   @map("item_text2")
+  itemSyncStatus   String?   @map("item_sync_status")
+  itemSyncDetails  Json?     @map("item_sync_details")
+  itemLastSyncDate DateTime? @map("item_last_sync_date") @db.Date
+  taskProgress     TaskProgressType    @default(None) @map("task_progress")
+  timestamp        DateTime  @default(now()) @map("item_timestamp")
+
+  // Relations.
+  meeting               meeting?  @relation(fields: [meetingId], references: [id])
+  topic                 topic?    @relation(fields: [topicId], references: [id])
+  owner                 person?   @relation(fields: [itemOwnerId], references: [id])
+  creator               user?     @relation(fields: [createdBy], references: [id])
+  protocol              protocol? @relation(fields: [protocolId], references: [id])
+  itemAssociatedPerson  itemAssociatedPerson[]
+
+  @@map(name: "summary_items")
+}
+
+// Note that we don't have foreign keys because we need to log inbound whether or not calendarEvent creation succeeds
+// Note that we expose created_date
+model googleEventLog {
+  id                  String    @id @default(dbgenerated("public.gen_random_uuid()")) @db.Uuid
+  userId              String?   @map("user_id")
+  eventId             String    @map("service_id")
+  event               Json?     @db.Json
+  createdDate         DateTime? @map("created_date")
+  createdByProcess    String?   @map("created_by_process")
+
+@@map(name: "google_event_log")
+}
+
+// Note that we don't have foreign keys because want to keep a record of emails sent / not sent no matter what happens to the underlying objects
+model jobsEmail {
+  id                       String    @id @default(dbgenerated("public.gen_random_uuid()")) @map("job_email_id") @db.Uuid
+  jobName                  String    @map("job_name")
+  jobType                  String    @map("job_type")
+  jobStatus                String    @map("job_status")
+  jobRecipients            Json      @map("job_recipients")
+  sendAfter                DateTime? @map("send_after_time")
+  sentAt                   DateTime? @map("sent_at_time")
+  failedAt                 DateTime? @map("failed_at_time")
+  canceledAt               DateTime? @map("canceled_at_time")
+  blockedAt                DateTime? @map("blocked_at_time")
+  meetingId                String?   @map("meeting_id")
+  creatorId                String?   @map("creator_id")
+
+  @@map(name: "jobs_email")
+}
+
+enum SignUpService {
+  Google
+  Zoom
+  Email
+}
+
+model user {
+  id                        String        @id @default(dbgenerated("public.gen_random_uuid()")) @map("user_id") @db.Uuid
+  info                      Json?         @db.Json
+  tokens                    Json?         @db.Json
+  isInternal                Boolean?      @default(false) @map("is_internal")
+  personId                  String        @unique @map("person_id") @db.Uuid
+  organizationId            String?       @map("organization_id") @db.Uuid
+  displayName               String       @map("display_name")
+  isActive                  Boolean?      @default(true) @map("is_active")
+  userPreferences           Json?         @map("user_preferences")
+  createdDate               DateTime?     @map("created_date") @default(now()) @db.Timestamptz(6)
+  serviceId                 String?       @unique @map("service_id")
+  loginEmail                String        @unique @map("login_email")
+  firstName                 String?       @map("first_name")
+  lastName                  String?       @map("last_name")
+  gcalPushChannel           String?       @unique @map("gcal_push_channel")
+  gcalResourceId            String?       @map("gcal_resource_id")
+  gcalSyncToken             String?       @map("gcal_sync_token")
+  gcalPushChannelExpiration DateTime?     @map("gcal_push_channel_expiration")
+  picture                   String?
+  signUpService             SignUpService @map("sign_up_service") // The service used to sign up.
+  signUpProductSurface      ProductSurface @default(Unknown) @map("sign_up_product_surface")
+  installedChromeExtension  Boolean       @default(false) @map("installed_chrome_extension")
+  wipFeature          String?       @map("wip_feature")
+
+  // Zoom.
+  zoomTokens Json?   @map("zoom_tokens") @db.Json
+  zoomUserId String? @unique @map("zoom_user_id")
+
+  // Hubspot
+  hubspotId String? @unique @map("hubspot_id")
+
+  // Relations.
+  //organization_organizationTousers_organizationId organization? @relation("organizationTousers_organizationId", fields: [organizationId], references: [id])
+  protocols               protocol[]  // Protocols created by this user.
+  protocolItems        protocolItem[]  // Protocol contents created by this user.
+  protocolItemActions  protocolItemAction[]  // Protocol content actions performed by this person.
+
+  person                                          person         @relation("personTousers_person_id", fields: [personId], references: [id])
+  topics                                          topic[]
+  note                                            note[]
+  summaryItem                                     summaryItem[]
+  authTokens                                      authToken[]
+  magicLinks                                      magicLink[]
+  organization                                    organization?          @relation("OrgUsers", fields: [organizationId], references: [id])
+  organizationFirstUser                           organization?          @relation("FirstOrgUser")
+  @@map(name: "users")
+}
+
+
+model hubspotSummary {
+  miter_user_id                                     String    @id @map("user_id") @db.Uuid
+  hubspot_id                                        String
+  google_is_active                                  Boolean
+  zoom_is_active                                    Boolean
+  number_of_notes_authored                          Int
+  number_of_topics_authored                         Int
+  number_of_summary_items_pinned                    Int
+  number_of_tasks_owned                             Int
+  number_of_meetings_attended                       Int
+  number_of_meetings_with_goals                     Int
+  number_of_meetings_with_summaries                 Int
+
+  @@map(name:"hubspot_summary")
+}
+
+
+//======================================================================================================================
+//                                                     AUTH TOKENS
+//======================================================================================================================
+// Stores information used to authenticate the user across different clients (browsers, the zoom app, etc).
+//
+// For more information see the Authentication page in Notion:
+// https://www.notion.so/miterco/Overview-1f5855fc9abf4044a9fe4f05c43a9dc3
+model authToken {
+  accessToken    String   @id @map("access_token") @db.Uuid @default(dbgenerated("public.gen_random_uuid()")) // Token used to authenticate the user.
+  refreshToken   String   @unique @map("refresh_token") @db.Uuid @default(dbgenerated("public.gen_random_uuid()")) // Token used to get a new set of tokens.
+  tokenExpiresAt DateTime @map("token_expires_at") // The timestamp of the expiration date for this token.
+  userId         String   @map("user_id") @db.Uuid // The user to whom this token belongs.
+  revoked        Boolean  @default(false)
+
+  // Metadata.
+  userAgent String?       @map("user_agent") // The user agent of the client used to create this token.
+  ipAddress String?       @map("ip_address") // The IP of the user when this token was created.
+  createdAt DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  // Relations.
+  user    user  @relation(fields: [userId], references: [id])
+
+  // SQL table.
+  @@map(name: "auth_tokens")
+}
+
+
+//======================================================================================================================
+//                                                     MAGIC LINKS
+//======================================================================================================================
+// One-time tokens to provide a way to authenticate without a password.
+model magicLink {
+  token           String    @id @db.Uuid @default(dbgenerated("public.gen_random_uuid()")) // The one-time token used to authenticate the user.
+  userId          String    @map("user_id") @db.Uuid  // The ID of the user that this link authenticates.
+  tokenExpiresAt  DateTime  @map("token_expires_at") // The expiration date for this token.
+  revoked         Boolean   @default(false)
+
+  // Metadata.
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  // Relations.
+  user    user  @relation(fields: [userId], references: [id])
+
+  // SQL table.
+  @@map(name: "magic_links")
+}
+
+//======================================================================================================================
+//                                                     PROTOCOLS
+//======================================================================================================================
+
+// Represents an instance of a protocol type in a meeting.
+model protocol {
+  // IDs.
+  id                String        @id @db.Uuid @default(dbgenerated("public.gen_random_uuid()"))
+  typeId            String        @db.Uuid @map("type_id")
+  creatorId         String        @db.Uuid @map("creator_id")
+  currentPhaseIndex Int           @map("current_phase_index") @default(0)
+
+  // Entity data.
+  title             String
+  isCompleted       Boolean       @default(false) @map("is_completed")
+  readyForNextPhase Boolean       @default(false) @map("ready_for_next_phase")
+  data              Json          @db.Json @default("{}")
+
+  // Relations.
+  creator       user            @relation(fields: [creatorId], references: [id])
+  currentPhase  protocolPhase   @relation(fields: [typeId, currentPhaseIndex], references: [protocolTypeId, index])
+  type          protocolType    @relation(fields: [typeId], references: [id])
+
+  items         protocolItem[]
+  actions       protocolItemAction[]
+  notes         note[]
+  summaryItems  summaryItem[]
+
+  // Metadata.
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  lastPhaseChangeDate   DateTime? @map("last_phase_change_date") @db.Timestamptz(6)
+
+  @@map("protocols")
+ }
+
+// Represents a specific type of protocol/structure.
+// Examples of protocol types are: "Ask a Question", "Prioritize" and "Brainstorm".
+model protocolType {
+  id              String        @id @db.Uuid @default(dbgenerated("public.gen_random_uuid()"))
+  name            String
+  description     String
+  data            Json          @db.Json @default("{}")
+
+  // Relations
+  protocols       protocol[]
+  phases          protocolPhase[]
+
+  // Metadata.
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("protocol_types")
+}
+
+enum ProtocolPhaseType {
+  SingleResponse
+  MultipleResponses
+  SoloMultipleResponses
+  ContentList
+  UserContentList
+  VoteOnContentList
+  ReviewVoteResults
+  OrganizeContentList
+}
+
+// Represents a given phase/screen of a given protocol type.
+// E.g. a "Ask a Question" protocol has two phases: "Collect" and "Discuss".
+model protocolPhase {
+  // IDs.
+  id              String              @id @db.Uuid @default(dbgenerated("public.gen_random_uuid()"))
+  protocolTypeId  String              @db.Uuid @map("protocol_type_id")
+
+  // Entity data.
+  index           Int
+  name            String
+  description     String
+  type            ProtocolPhaseType
+  isCollective    Boolean             @map("is_collective")
+  data            Json                @db.Json @default("{}")
+
+  // Relations.
+  protocolType    protocolType  @relation(fields: [protocolTypeId], references: [id])
+  protocols       protocol[]  // Protocols currently in this phase.
+  contents        protocolItem[]  // Contents created in this phase for all protocols.
+
+  // Metadata.
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@unique([protocolTypeId, index], map: "protocol_phases_unique_index")
+  @@map("protocol_phases")
+}
+
+enum ProtocolItemType {
+  Item
+  Group
+}
+
+// User-content added to protocols.
+model protocolItem {
+  // IDs.
+  id              String      @id @db.Uuid @default(dbgenerated("public.gen_random_uuid()"))
+  creatorId       String      @db.Uuid @map("creator_id")  // Reference to person.
+  protocolId      String      @db.Uuid @map("protocol_id")
+  protocolPhaseId String      @db.Uuid @map("protocol_phase_id")
+// Entity data.
+  text            String
+  tags            String[]
+  data            Json        @db.Json @default("{}")
+  isForcefullyPrioritized   Boolean     @default(false) @map("is_forcefully_prioritized")
+  isForcefullyDeprioritized Boolean     @default(false) @map("is_forcefully_deprioritized")
+  type            ProtocolItemType
+
+  // Relations.
+  creator       user            @relation(fields: [creatorId], references: [id])
+  protocol      protocol        @relation(fields: [protocolId], references: [id])
+  protocolPhase protocolPhase   @relation(fields: [protocolPhaseId], references: [id])
+  actions       protocolItemAction[]
+  parentId      String?     @db.Uuid @map("parent_id")
+  parent        protocolItem?   @relation("children", fields: [parentId], references: [id])
+  children      protocolItem[]  @relation("children")
+
+  // Metadata.
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("protocol_items")
+}
+
+// User-action on protocol content.
+// E.g. comments, voting items, etc.
+model protocolItemAction {
+  // IDs.
+  id                String      @id @db.Uuid @default(dbgenerated("public.gen_random_uuid()"))
+  creatorId         String      @db.Uuid @map("creator_id")  // Reference to person.
+  protocolItemId    String      @db.Uuid @map("protocol_item_id")
+  protocolId        String      @db.Uuid @map("protocol_id")
+
+  // Entity data.
+  type              String
+  data              Json          @db.Json @default("{}")
+
+  // Relations.
+  creator           user            @relation(fields: [creatorId], references: [id])
+  protocol          protocol        @relation(fields: [protocolId], references: [id])
+  protocolItem      protocolItem    @relation(fields: [protocolItemId], references: [id])
+
+  // Metadata.
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("protocol_item_actions")
+}
+

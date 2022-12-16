@@ -1,0 +1,48 @@
+@import 'Global.less';
+
+.ProtocolDrawerBody {
+  button.ReopenButton {
+    padding: 20px 12px;
+    color: @black-alpha-medlight;
+    width: 100%;
+    border-radius: @brainstorm-card-border-radius;
+
+    &:hover {
+      background-color: @black-alpha-xxlight;
+    }
+  }
+}
+
+.Brainstorm {
+  .UserContentListPhaseView {
+    // Iterate over each index of the @brainstorm-card-colors array.
+    each(range(length(@brainstorm-card-backgrounds)), {
+        // There is a <section> that wraps the content from each user. Here @{value} is the current index in the iteration 
+        // (the current value of the array created by the range() function).
+        section:nth-of-type(@{value}) {
+          .ProtocolCard {
+            background-color: extract(@brainstorm-card-backgrounds, @value);
+            box-shadow: @brainstorm-protocard-first-shadow-dims extract(@brainstorm-shadow-colors, @value), @brainstorm-protocard-second-shadow, @brainstorm-protocard-third-shadow;
+            
+            .Body {
+              color: extract(@brainstorm-card-foregrounds, @value);
+            }
+          }
+        }
+      });
+  }
+
+  .ProtocolDrawerBody button.ReopenButton {
+    &,
+    & span {
+      font-weight: normal;
+      font-family: @brainstorm-font;
+      font-size: @brainstorm-font-size;
+    }
+  }
+}
+
+.ProtocolDrawerFooterAuxButtons {
+  display: flex;
+  align-items: center;
+}

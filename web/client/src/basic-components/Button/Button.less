@@ -1,0 +1,290 @@
+@import 'Global.less';
+
+// ==================================================================================================================
+//                                         DEFAULT / SECONDARY BUTTONS
+// ==================================================================================================================
+
+// TODO-REFACTOR do we need the two separate top-level rules?
+button.Btn,
+button.ant-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition-duration: 0.3s;
+  transition-property: background-color, transform, color, disabled;
+  transition-timing-function: ease-in-out;
+
+  background-color: @miter-btn-bg-color;
+  color: @miter-btn-color;
+  border: 1px solid @miter-btn-border-color;
+  border-radius: @miter-border-radius-base;
+
+  padding: 0 11px; // TODO why?
+
+  box-shadow: none;
+
+  font-size: @miter-font-size-base;
+  line-height: @miter-line-height-base;
+  font-weight: 700;
+
+  &.ShrinkableWrapper {
+    align-items: center;
+    display: flex;
+    min-width: 100px;
+    flex-grow: 0;
+    flex-shrink: 1;
+
+    .Shrinkable {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-shrink: 1;
+      flex-grow: 0;
+      min-width: 0;
+      white-space: nowrap;
+    }
+  }
+
+  // Even up optical padding for larger buttons with both label and icon
+  &.HasLabel.HasIcon.large:not(.ant-btn-text) {
+    span:not(.ant-spin-dot) {
+      margin-right: 8px;
+    }
+
+    svg:not(.RIcon) {
+      margin-left: 4px;
+    }
+  }
+
+  &:not([disabled]) {
+    &:hover,
+    &:focus,
+    &.focus {
+      border-color: @miter-btn-hover-border-color;
+      color: @miter-btn-hover-color;
+      background-color: @miter-btn-hover-bg-color;
+    }
+    &:focus,
+    &.focus {
+      box-shadow: @focus-shadow;
+    }
+
+    &:hover:not(.PH) {
+      transform: scale(1.03);
+    }
+
+    &:active:not(.PH) {
+      transform: scale(0.95);
+    }
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+  svg,
+  .ant-spin {
+    margin: 0 8px;
+    flex-shrink: 0;
+
+    &.RIcon {
+      margin: 0 0 0 8px;
+    }
+  }
+
+  span i {
+    font-style: normal;
+  }
+
+  &[disabled],
+  &[disabled]:hover {
+    color: @black-alpha-light;
+    background-color: @black-alpha-xlight;
+    border-color: transparent;
+
+    svg path {
+      fill: @black-alpha-light;
+    }
+
+    &.ant-btn-text {
+      background-color: transparent;
+    }
+  }
+
+  &.TypeLight {
+    background: rgba(@brand1, 0.12);
+    color: @brand1-meddark;
+    svg path {
+      fill: @brand1-meddark;
+    }
+  }
+
+  // ==================================================================================================================
+  //                                                 PRIMARY BUTTONS
+  // ==================================================================================================================
+
+  &.TypePrimary:not([disabled]) {
+    color: @brand2;
+    background-color: @miter-btn-bg-color-primary;
+    border-color: @miter-btn-border-color-primary;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      border-color: @miter-btn-hover-border-color-primary;
+      color: @miter-btn-hover-color-primary;
+      background-color: @miter-btn-hover-bg-color-primary;
+    }
+  }
+
+  // ==================================================================================================================
+  //                                                 OUTLINE ("Ghost")
+  // ==================================================================================================================
+
+  &.ant-btn-background-ghost:not([disabled]) {
+    color: @miter-btn-color;
+    border-color: @miter-btn-color;
+    background-color: transparent;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: @miter-btn-hover-color;
+      border-color: @miter-btn-hover-color;
+      background-color: transparent;
+    }
+
+    &.ant-btn-primary {
+      color: @miter-btn-color-primary;
+      border-color: @miter-btn-color-primary;
+
+      &:hover,
+      &:focus,
+      &.focus {
+        color: @miter-btn-hover-color-primary;
+        border-color: @miter-btn-hover-color-primary;
+      }
+    }
+  }
+
+  // ==================================================================================================================
+  //                                               Borderless ("Text")
+  // ==================================================================================================================
+
+  &.TypeBorderless,
+  &.ant-btn-text {
+    color: @miter-btn-color-borderless;
+    background-color: transparent;
+    border-color: transparent;
+    padding-left: 4px;
+    padding-right: 4px;
+
+    &[disabled],
+    &[disabled]:hover {
+      opacity: 0.4;
+    }
+
+    &.HasIcon {
+      padding-left: 0;
+      padding-right: 8px;
+
+      &:not(.HasLabel) {
+        padding: 0;
+      }
+    }
+  }
+
+  // ==================================================================================================================
+  //                                       Placeholder ("Text" - borderless variant)
+  // ==================================================================================================================
+
+  &.PH {
+    text-align: left;
+    padding: 8px;
+    color: @black-alpha-med;
+    background-color: transparent;
+    justify-content: flex-start;
+
+    svg,
+    path {
+      fill: @black-alpha-med;
+    }
+
+    &:hover,
+    &:focus,
+    &.focus {
+      border-color: transparent;
+    }
+  }
+
+  // Dropdown arrows
+
+  & .Arrow {
+    width: 12px;
+    margin-right: 4px;
+
+    path {
+      fill: @black-alpha-med;
+    }
+  }
+  &:hover .Arrow path {
+    fill: @black-alpha-med;
+  }
+
+  &.small {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    span {
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+
+  // ==================================================================================================================
+  //                                       Placeholder ("Text" - borderless variant)
+  // ==================================================================================================================
+
+  &.OnDark,
+  &.ant-btn-background-ghost.OnDark {
+    @color: rgba(255, 255, 255, 0.85);
+
+    color: @color;
+
+    &:hover {
+      color: @miter-link-color-on-dark;
+    }
+
+    &:focus,
+    &.focus {
+      color: @color;
+    }
+
+    &.ant-btn-background-ghost {
+      border-color: @color;
+
+      &:hover {
+        border-color: @brand2-lighter;
+        background-color: @white-alpha-weakest;
+      }
+    }
+
+    &.ant-btn-text {
+      &:hover {
+        color: white !important;
+      }
+    }
+  }
+
+  // Icon spinners
+  .ant-spin {
+    margin-top: 2px;
+    margin-right: 12px;
+
+    .ant-spin-dot-item {
+      background-color: @black-alpha-med;
+    }
+  }
+}

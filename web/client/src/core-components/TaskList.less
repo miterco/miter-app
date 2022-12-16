@@ -1,0 +1,15 @@
+@import 'Global.less';
+
+.TaskSection {
+  flex: 1;
+  min-width: 0;
+
+  .Card.ListCard {
+    height: 100%;
+    background-color: @root-content-card-background;
+
+    .CardList > *:first-child .SummaryItem {
+      border-width: 0 !important;
+    }
+  }
+}

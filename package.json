@@ -1,0 +1,40 @@
+{
+  "name": "miter",
+  "version": "1.39.1",
+  "description": "",
+  "main": "UNUSED.js",
+  "scripts": {
+    "postbuild:common": "cd common && npm i && ./node_modules/typescript/bin/tsc",
+    "postbuild:server": "cd server && npm i && npm run build",
+    "postbuild:client": "cd web/client && npm i && npm run build",
+    "heroku-postbuild": "npm run postbuild:common && npm run postbuild:server && npm run postbuild:client",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm start",
+    "dev:combo": "cd client && npm run build && cd ../server && npm run dev",
+    "start": "cd server && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miterco/miter-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miterco/miter-app/issues"
+  },
+  "homepage": "https://github.com/miterco/miter-app#readme",
+  "prettier": {
+    "bracketSpacing": false,
+    "arrowParens": "avoid",
+    "printWidth": 120,
+    "singleQuote": true
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "eslint": "^8.7.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^5.10.2",
+    "typescript": "^4.5.5"
+  }
+}

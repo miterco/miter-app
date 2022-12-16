@@ -1,0 +1,32 @@
+# Based off Semgrep's defaults at https://semgrep.dev/docs/ignoring-files-folders-code/.
+# The only thing I changed (as of Jan 2022) is *_test.go -> *.test.ts
+
+# Ignore git items
+.gitignore
+.git/
+:include .gitignore
+
+# Common large paths
+node_modules/
+build/
+dist/
+vendor/
+.env/
+.venv/
+.tox/
+*.min.js
+
+# Common test paths
+test/
+tests/
+testing/
+*.test.ts
+
+# Semgrep rules folder
+.semgrep
+
+# Semgrep-action log folder
+.semgrep_logs/
+
+# Individual test helper files
+populate-test-data.sql

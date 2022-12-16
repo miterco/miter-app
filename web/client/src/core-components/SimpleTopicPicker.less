@@ -1,0 +1,45 @@
+@import 'Global.less';
+
+button.Btn.SimpleTopicPicker {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+button.Btn.SimpleTopicPicker {
+  margin-left: -8px;
+  padding: 0 4px 0 7px !important;
+  height: auto;
+
+  .Arrow {
+    margin-left: 4px;
+    width: 10px;
+    flex-shrink: 0;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    transform: scale(1) !important;
+    background-color: @black-alpha-xxlight;
+    border-color: transparent;
+  }
+  &:focus {
+    background-color: @black-alpha-lighter;
+  }
+
+  span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+  }
+}
+
+.SimpleTopicOverlay .ant-dropdown-menu {
+  max-width: 360px;
+
+  & > .ant-dropdown-menu-item > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

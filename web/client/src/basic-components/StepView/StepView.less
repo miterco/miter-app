@@ -1,0 +1,47 @@
+@import 'Global.less';
+
+.StepView {
+  display: flex;
+  align-items: center;
+
+  .Num {
+    font-weight: 900;
+    font-size: 24px;
+    color: white;
+    background-color: @black-alpha-med;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 36px;
+    margin-right: 8px;
+
+    svg {
+      width: 24px;
+      height: 40px;
+
+      path {
+        fill: white;
+      }
+    }
+  }
+
+  .Text {
+    color: @black-alpha-med;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  &.Completed .Num {
+    background-color: @black-alpha-light;
+  }
+
+  &.Current {
+    .Num {
+      background-color: @brand2;
+    }
+    .Text {
+      color: @brand2;
+    }
+  }
+}

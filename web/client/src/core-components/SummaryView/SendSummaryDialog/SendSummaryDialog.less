@@ -1,0 +1,46 @@
+@import 'Global.less';
+
+.SendSummaryDialog {
+  .Select {
+    width: 100%;
+  }
+
+  .Valid,
+  .Invalid {
+    border-radius: 6px;
+    font-size: @miter-font-size-base;
+    padding: 0 4px 2px 4px;
+
+    .anticon-close {
+      color: @black-alpha-med;
+      margin-left: 4px;
+    }
+  }
+
+  .Valid {
+    background-color: @black-alpha-lighter;
+  }
+
+  .Invalid {
+    background-color: fade(@miter-error-color, 15%);
+    border-color: fade(@miter-error-color, 33%);
+    color: @miter-error-color;
+
+    .anticon-close {
+      color: @miter-error-color;
+    }
+  }
+
+  .ant-spin {
+    margin: 24px 0;
+
+    .ant-spin-dot-item {
+      background-color: @brand1;
+    }
+
+    .ant-spin-text {
+      margin-top: 8px;
+      color: @brand1-med;
+    }
+  }
+}

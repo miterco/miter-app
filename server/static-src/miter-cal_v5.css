@@ -1,0 +1,144 @@
+:root {
+  --sidebar-width: 380px;
+}
+
+/* ---------- Basics ----------*/
+
+.MiterGoalRow *,
+.MiterStaticGoalContainer *,
+.MiterToolbar {
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 1rem;
+}
+
+/* ---------- Modals ---------- */
+
+.MiterModalWrap {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+}
+.MiterModal {
+  border-radius: 8px;
+  overflow: hidden;
+}
+.MiterModal iframe,
+.MiterSidebarWrap iframe {
+  background-color: white;
+  border-width: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.MiterSidebarWrap {
+  width: var(--sidebar-width);
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9998;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.5s ease, transform 0.5s ease, width 0.5s ease;
+  border-radius: 12px 0 0 16px;
+  overflow: hidden;
+}
+.MiterSidebarWrap.Hide {
+  transform: translateX(420px); /* width + space for shadow */
+  opacity: 0;
+}
+
+/* Comment this out to disable embedded sidebar */
+@media only screen and (min-width: 1380px) {
+  .MiterSidebarWrap {
+    position: static;
+    box-shadow: none;
+    border-radius: 0;
+    border-width: 0 0 0 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+  .MiterSidebarWrap.Hide {
+    transform: translateX(0);
+    width: 0;
+  }
+}
+
+/* ---------- Static Popup ---------- */
+
+/* -- Remove after Sept 2021 if unused
+.MiterStaticGoalContainer {
+  display: block;
+  margin: 2px 0;
+}
+.MiterStaticGoalContainer strong {
+  font-weight: 500;
+}
+*/
+
+/* ---------- Start Row ---------- */
+
+.MiterStartRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 20px 8px 68px;
+}
+.MiterStartRow.Page {
+  margin: 8px 20px 8px 64px;
+}
+#miterStartButton {
+  margin: 0 16px 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s ease, background-color 0.4s ease;
+  background-color: #991758;
+  padding: 6px 8px;
+  color: white;
+  border-width: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  outline-width: 0;
+  font-weight: 600;
+}
+#miterStartButton span {
+  margin: 0 2px 0 8px;
+  white-space: nowrap;
+}
+#miterStartButton:hover {
+  background-color: #bf3078;
+  transform: scale(1.06);
+}
+#miterStartButton:active {
+  transform: scale(0.96);
+}
+#miterStartButton path {
+  fill: rgba(255, 255, 2555, 0.75);
+}
+
+.MiterStartRow .MiterHint {
+  color: rgba(0, 0, 0, 0.5);
+  line-height: 20px;
+  margin: 0;
+}
+
+/* Hide on create page */
+[data-is-create='true'] .MiterStartRow {
+  display: none;
+}
+
+/* Clockwise tweaks */
+.HasMiterSidebar #cwTooltip {
+  margin-left: calc(var(--sidebar-width) * -1);
+}
+.HasMiterSidebar #cw-app-elem > div > div:nth-child(3) {
+  right: var(--sidebar-width) !important;
+}

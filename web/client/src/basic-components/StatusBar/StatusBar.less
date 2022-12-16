@@ -1,0 +1,24 @@
+@import 'Global.less';
+
+.StatusBar {
+  align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: white;
+  padding: 8px;
+  font-size: @font-size-small;
+  line-height: @line-height-small;
+  font-weight: 600;
+  transform-origin: bottom center;
+  overflow: hidden;
+
+  &.Muted {
+    background: rgb(194, 194, 194);
+  }
+
+  &.Primary {
+    background: @brand1-meddark;
+  }
+}

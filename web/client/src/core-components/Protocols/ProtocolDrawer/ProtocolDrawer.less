@@ -1,0 +1,42 @@
+@import 'Global.less';
+
+.ProtocolDrawer {
+  .Content {
+    display: flex;
+    flex-direction: column;
+
+    .ProtocolDrawerHeader {
+      margin-bottom: 1em;
+
+      .Title {
+        color: @black-alpha-darker;
+        font-size: @font-size-larger;
+        font-weight: 700;
+        line-height: @line-height-large;
+        margin-bottom: 0;
+        margin-top: 20px;
+        text-align: center;
+        padding: 0 16px;
+      }
+
+      .Subtitle {
+        color: @black-alpha-dark;
+        font-size: @miter-font-size-base;
+        line-height: @miter-line-height-base;
+        margin-top: 4px;
+        text-align: center;
+        padding: 0 16px;
+      }
+    }
+
+    .ProtocolDrawerBody {
+      padding: 8px 16px;
+      flex-grow: 1;
+      overflow: auto;
+    }
+
+    .DrawerFooter {
+      box-shadow: 0 -1px 2px rgb(0 0 0 / 4%);
+    }
+  }
+}

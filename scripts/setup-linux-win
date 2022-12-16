@@ -1,0 +1,38 @@
+#!/bin/sh
+
+cd `dirname $0`
+
+chmod u+x reset-test-db
+
+sudo apt update
+sudo apt install nodejs npm
+sudo npm install -g n
+sudo n latest
+# TODO update to use Node 14 and test
+
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - 
+echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list 
+sudo apt update
+sudo apt install postgresql-13 postgresql-client-13
+sudo service postgresql start
+sleep 5
+sudo -u postgres createuser miter
+sudo -u postgres createdb -O miter miter-test
+sudo -u postgres psql miter-test < ./create-db-tables.sql
+sudo -u postgres psql miter-test < ./populate-test-data.sql 
+sudo -u postgres psql miter-test -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO miter; GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO miter;"
+
+cd ..
+
+cd common
+npm install
+cd ../web/client
+npm install
+cd ../welcome
+npm install
+cd ../../server
+cp sample.env .env
+npm install
+npx prisma generate
+
+cd ..

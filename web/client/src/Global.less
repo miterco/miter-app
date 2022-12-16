@@ -1,0 +1,131 @@
+@import url('https://use.typekit.net/knl4jhx.css');
+
+@import './Brand.less';
+@import './GlobalAntOverrides.less';
+
+// =============================================================================================================
+//                                             Colors & Effects
+// =============================================================================================================
+
+@miter-primary-color: @brand1-near-black;
+@miter-selection-bg: fade(@brand1, 40%);
+@miter-link-color: @brand2-med;
+@miter-link-hover-color: @brand2-bright;
+@miter-link-color-on-dark: @brand2-lighter;
+@miter-error-color: #b32d00;
+@miter-text-color: @brand1-near-black;
+@miter-text-color-secondary: #828282;
+@box-shadow-small: 0 1px 5px rgba(0, 0, 0, 0.16);
+@miter-card-background: rgba(255, 255, 255, 0.85);
+@root-card-background: rgba(255, 255, 255, 0.88);
+@root-content-card-background: rgba(255, 255, 255, 0.93);
+@hover-background: fade(@brand1, 8%);
+
+@miter-box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15);
+@miter-card-shadow: 0px 4px 8px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.2);
+@low-card-shadow: 0px 3px 5px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.2);
+@lower-card-shadow: 0px 2px 4px rgba(0, 0, 0, 0.03), 0px 0px 1px rgba(0, 0, 0, 0.2);
+@overlay-shadow: 0px 8px 24px rgba(0, 0, 0, 0.08), 0px 4px 12px rgba(0, 0, 0, 0.24), 0px 0px 1px rgba(0, 0, 0, 0.12);
+
+// =============================================================================================================
+//                                               Typography
+// =============================================================================================================
+
+@miter-font-size-base: 15px;
+@font-size-small: 13px;
+@font-size-medium: @miter-font-size-base;
+@font-size-large: 17px;
+@font-size-larger: 19px;
+@font-size-xlarge: 21px;
+@font-size-xxlarge: 24px;
+@font-size-huge: 64px;
+@miter-line-height-base: 20px;
+@line-height-medium: @miter-line-height-base;
+@line-height-large: 24px;
+@line-height-xlarge: 28px;
+@line-height-xxlarge: 32px;
+@line-height-small: 16px;
+
+// =============================================================================================================
+//                                           Dimensions & Layout
+// =============================================================================================================
+
+@major-breakpoint: 750px; // Also need to change SidebarWidth in App.tsx
+@card-padding: 12px;
+
+@miter-border-radius-base: 8px;
+
+@miter-padding-lg: 24px;
+@miter-padding-medlg: 16px;
+
+// =============================================================================================================
+//                                                Controls
+// =============================================================================================================
+
+@miter-btn-color: @brand1-dark;
+@miter-btn-hover-color: @brand1-meddark;
+@miter-btn-bg-color: fade(@brand1-dark, 10%);
+@miter-btn-border-color: transparent;
+@miter-btn-hover-border-color: transparent;
+@miter-btn-hover-bg-color: fade(@brand1-med, 16%);
+
+@miter-btn-color-primary: @brand2;
+@miter-btn-border-color-primary: transparent;
+@miter-btn-hover-border-color-primary: transparent;
+@miter-btn-bg-color-primary: fade(@brand2-dark, 8%);
+@miter-btn-hover-bg-color-primary: fade(@brand2, 12%);
+@miter-btn-hover-color-primary: @brand2-med;
+
+@miter-btn-color-borderless: @black-alpha-med;
+@miter-btn-default-ghost-color: @miter-btn-color;
+
+@miter-btn-text-hover-bg: fade(@brand1, 24%);
+
+@miter-input-background: rgba(0, 0, 0, 0.07);
+
+@focus-shadow: 0 0 0 2px fade(@brand2-bright, 67%);
+
+@button-tb-hover-bg: fade(@brand1, 30%);
+@button-tb-hover-bg-primary: fade(@brand2-bright, 20%);
+
+// =============================================================================================================
+//                                              Protocols
+// =============================================================================================================
+
+@brainstorm-font: 'Patrick Hand', @font-family;
+@brainstorm-font-size: 19px;
+@brainstorm-card-border-radius: 16px 4px;
+
+@brainstorm-color-yellow-bg: #fffbed;
+@brainstorm-color-yellow-fg: #694e00;
+@brainstorm-color-yellow-shadow: rgba(196, 157, 39, 0.16);
+@brainstorm-color-yellow-bg-light: #f7f6f2;
+
+@brainstorm-color-purple-bg: #f8f2ff;
+@brainstorm-color-purple-fg: #331f4d;
+@brainstorm-color-purple-shadow: rgba(148, 102, 204, 0.16);
+
+@brainstorm-color-blue-bg: #edf5fa;
+@brainstorm-color-blue-fg: #09364f;
+@brainstorm-color-blue-shadow: rgba(39, 139, 196, 0.14);
+
+@brainstorm-color-green-bg: #eefaed;
+@brainstorm-color-green-fg: #124010;
+@brainstorm-color-green-shadow: rgba(45, 196, 39, 0.14);
+
+@brainstorm-color-pink-bg: #faedf0;
+@brainstorm-color-pink-fg: #593c41;
+@brainstorm-color-pink-shadow: rgba(196, 39, 68, 0.11);
+
+@brainstorm-protocard-first-shadow-dims: 0px 5px 12px;
+@brainstorm-protocard-second-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
+@brainstorm-protocard-third-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+@brainstorm-protocard-box-shadow-yellow: @brainstorm-protocard-first-shadow-dims @brainstorm-color-yellow-shadow,
+  @brainstorm-protocard-second-shadow, @brainstorm-protocard-third-shadow;
+
+@brainstorm-card-backgrounds: @brainstorm-color-yellow-bg, @brainstorm-color-purple-bg, @brainstorm-color-blue-bg,
+  @brainstorm-color-green-bg, @brainstorm-color-pink-bg;
+@brainstorm-card-foregrounds: @brainstorm-color-yellow-fg, @brainstorm-color-purple-fg, @brainstorm-color-blue-fg,
+  @brainstorm-color-green-fg, @brainstorm-color-pink-fg;
+@brainstorm-shadow-colors: @brainstorm-color-yellow-shadow, @brainstorm-color-purple-shadow,
+  @brainstorm-color-blue-shadow, @brainstorm-color-green-shadow, @brainstorm-color-pink-shadow;

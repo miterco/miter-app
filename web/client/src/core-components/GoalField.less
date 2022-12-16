@@ -1,0 +1,79 @@
+@import 'Global.less';
+
+@font-size: 15px;
+@font-weight: 600;
+
+.GoalField {
+  display: flex;
+  margin: 12px 12px 0 12px;
+  align-items: center;
+
+  label {
+    font-size: @font-size;
+    font-weight: 800;
+    line-height: 40px;
+    color: @miter-primary-color;
+  }
+
+  button.Btn {
+    border: 0;
+    padding: 0 2px 0 4px;
+    margin-left: 2px;
+    min-width: 0;
+
+    span {
+      text-align: left;
+      font-weight: @font-weight;
+      color: @miter-primary-color;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &:hover {
+      transform: scale(1.01) !important;
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+
+    &:focus {
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: @focus-shadow;
+    }
+
+    .PH {
+      font-weight: 600;
+      color: @black-alpha-med;
+    }
+
+    .Arrow {
+      width: 12px;
+      transition: all 0.3s;
+    }
+  }
+  &.Strong button .PH {
+    color: @brand2;
+  }
+  &.Other button.Btn {
+    .Arrow {
+      transform: rotate(-90deg) translate(-1px);
+    }
+    &:hover .Arrow,
+    &.focus .Arrow {
+      transform: rotate(0);
+    }
+  }
+
+  .ant-input {
+    transition: all 0.3s;
+    background-color: transparent;
+    font-size: @font-size;
+    font-weight: @font-weight;
+    min-height: 30px;
+    padding-left: 4px;
+    padding-right: 4px;
+
+    &:hover,
+    &:focus {
+      background-color: @miter-input-background;
+    }
+  }
+}

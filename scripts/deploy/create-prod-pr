@@ -1,0 +1,185 @@
+#!/usr/bin/env node
+
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+const {execSync, spawn} = require('child_process');
+
+// Commands.
+const GitCheckoutMainCommand = 'git checkout main --quiet';
+const GitPullMainCommand = 'git pull origin main --quiet';
+const GitPushMainCommand = 'git push origin main --quiet';
+const GetLatestProdDeploysCommand = `
+  gh pr list \
+    --repo github.com/miterco/miter-app \
+    --base prod \
+    --head main \
+    --state merged \
+    --limit 1 \
+    --json updatedAt
+`;
+const GetMergedPullRequestsSinceDate = `
+  gh pr list \
+    --repo github.com/miterco/miter-app \
+    --base main \
+    --search "merged:>DATE" \
+    --json "title,body,number,files"
+`;
+
+const formatBody = (sql, env, pullRequests) =>
+  `## Database Changes
+\`\`\`sql
+${sql}
+\`\`\`
+
+## Environment Variables
+\`\`\`yaml
+${env}
+\`\`\`
+
+## Changelog
+${pullRequests.map(pr => `- #${pr.number}`).join('\n')}`;
+
+/**
+ * Creates a header to group the db and env changes by PR number.
+ *
+ * The generated header looks something like this:
+ * -------------------------------------------------
+ * --                    #521                     --
+ * -------------------------------------------------
+ */
+const HeaderWidth = 100;
+const getHeaderForPullRequest = (prNumber, character) => {
+  // Compute the number of spaces around the #PR_NUMBER in the header.
+  const paddingSize = (HeaderWidth - 5 - prNumber.toString().length) / 2;
+  const prHeader = [
+    character.repeat(HeaderWidth),
+    character.repeat(2) +
+      ' '.repeat(paddingSize) +
+      '#' +
+      prNumber.toString() +
+      ' '.repeat(paddingSize) +
+      character.repeat(2),
+    character.repeat(HeaderWidth),
+  ].join('\n');
+
+  return prHeader;
+};
+
+const parseSqlAndEnvChanges = pullRequests => {
+  // Find all the SQL and ENV changes.
+  let sql = '';
+  let env = '';
+
+  pullRequests.forEach(pr => {
+    const sqlMatches = pr.body.match(/```sql([^`]*)/);
+    const envMatches = pr.body.match(/```(yaml|yml)([^`]*)/);
+    const containsDatabaseChanges = pr.files.some(
+      ({path}) => path.includes('create-db-tables.sql') || path.includes('schema.prisma')
+    );
+    const sqlQuery = sqlMatches?.length === 2 ? sqlMatches[1] : null;
+    const containsEnvChanges = pr.files.some(({path}) => path.includes('sample.env'));
+    const envSection = envMatches?.length === 3 ? envMatches[2] : null;
+    const sqlHeader = getHeaderForPullRequest(pr.number, '-');
+    const envHeader = getHeaderForPullRequest(pr.number, '#');
+
+    if (containsDatabaseChanges && !sqlQuery) {
+      console.log(`PR #${pr.number} contains database changes, but no SQL query in the PR description.`);
+      process.exit();
+    } else if (sqlQuery) sql += sqlHeader + '\n' + sqlQuery + '\n';
+
+    if (containsEnvChanges && !envSection) {
+      console.log(`PR #${pr.number} contains environment changes, but no ENV section in the PR description.`);
+      process.exit();
+    } else if (envSection) env += envHeader + '\n' + envSection + '\n';
+  });
+
+  return {sql, env};
+};
+
+const getMergedPullRequestsSince = date => {
+  console.log('Fetching all the PRs that have been merged since', date);
+  return JSON.parse(execSync(GetMergedPullRequestsSinceDate.replace('DATE', date)));
+};
+
+const getLatestDeployPR = () => {
+  console.log('Fetching the last production deploy PR');
+  const [latestDeploy] = JSON.parse(execSync(GetLatestProdDeploysCommand));
+  return latestDeploy;
+};
+
+const checkoutMain = () => {
+  console.log('Checking out the "main" branch');
+  execSync(GitCheckoutMainCommand);
+};
+
+const pullMain = () => {
+  console.log('Pulling the latest changes');
+  execSync(GitPullMainCommand);
+};
+
+const pushMain = () => {
+  console.log('Pushing local changes');
+  execSync(GitPushMainCommand);
+};
+
+const printChangelog = prs => {
+  console.log(`\n=================  CHANGELOG  =================`);
+  prs.forEach(pr => console.log(`- ${pr.title}`));
+};
+
+const createDeployPullRequest = async () => {
+  checkoutMain();
+  pullMain();
+  pushMain();
+
+  const latestDeployPR = getLatestDeployPR();
+  const mergedPullRequests = getMergedPullRequestsSince(latestDeployPR.updatedAt);
+
+  // Format the production deploy PR.
+  const {sql, env} = parseSqlAndEnvChanges(mergedPullRequests);
+  const body = formatBody(sql, env, mergedPullRequests);
+  printChangelog(mergedPullRequests);
+
+  // Make sure the user updated the version number.
+  rl.question('\nWhat version segment do you want to update? (M)ajor / (m)inor / (p)atch: ', answer => {
+    if (answer === 'M') execSync('npm version major');
+    if (answer === 'm') execSync('npm version minor');
+    if (answer === 'p') execSync('npm version patch');
+
+    const pkg = require('../../package.json');
+    console.log(`Current version: ${pkg.version}`);
+    const title = `Production Deploy v${pkg.version}`;
+
+    rl.question('Are you sure you want to create this deploy PR? (y/n): ', answer => {
+      if (answer === 'y') {
+        console.log('Creating the Pull Request...');
+        const ghProcess = spawn('gh', [
+          'pr',
+          'create',
+          '--repo',
+          'github.com/miterco/miter-app',
+          '--base',
+          'prod',
+          '--head',
+          'main',
+          '--title',
+          title,
+          '--body',
+          body,
+        ]);
+
+        ghProcess.stderr.on('data', data => console.error(data.toString()));
+        ghProcess.on('close', code => {
+          if (code === 0) console.log(title, 'created!');
+          else console.error('Failed to create the pull request.');
+        });
+      } else console.log('Aborted!');
+      rl.close();
+    });
+  });
+};
+
+createDeployPullRequest();

@@ -1,0 +1,52 @@
+@import 'Global.less';
+
+.PickerOptionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .Option {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:first-child {
+      padding-top: 16px;
+    }
+
+    &:last-child {
+      padding-bottom: 16px;
+    }
+
+    .Title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: @brand1-dark;
+      font-size: @miter-font-size-base;
+      line-height: @miter-line-height-base;
+      font-weight: 800;
+      line-height: 20px;
+      letter-spacing: 0em;
+
+      .Icon {
+        height: 20px;
+      }
+    }
+    .Description {
+      color: @black-alpha-dark;
+      font-size: 13px;
+      line-height: 20px;
+      font-weight: 400;
+    }
+
+    &:hover {
+      background: rgba(white, 0.4);
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.03), 0px 0px 1px rgba(0, 0, 0, 0.2);
+      &:last-child {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+    }
+  }
+}

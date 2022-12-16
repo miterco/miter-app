@@ -1,0 +1,32 @@
+#!/bin/bash
+
+USER_EMAIL="$1"
+
+if [ -z "$USER_EMAIL" ]
+then
+  echo "You must provide a user email. Usage: 'delete-user USER_EMAIL'";
+  exit 1;
+fi
+
+USERNAME=$(echo "SELECT display_name FROM users WHERE login_email='$USER_EMAIL';" | psql -Aqt -U miter miter-test)
+
+if [ -z "$USERNAME" ]
+then
+  echo "It seems like the user you are trying to delete wasn't found or it has no name. Please, double check the user ID.";
+fi
+
+read -p "Are you sure you want to delete Google credentials for '$USERNAME'? y/n: " -n 1 -r
+echo ""  # Add a line break.
+
+# Exit is the reply wasn't: Y or y.
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+  exit 1
+fi
+
+# Delete the user.
+echo "
+  UPDATE users
+  SET service_id=NULL, gcal_push_channel=NULL, gcal_resource_id=NULL, gcal_sync_token=NULL, gcal_push_channel_expiration=NULL
+  WHERE login_email = '$USER_EMAIL';
+" | psql -Aqt -U miter miter-test && echo "Google credentials removed."

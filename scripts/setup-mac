@@ -1,0 +1,26 @@
+#!/bin/sh
+
+cd `dirname $0`
+chmod u+x reset-test-db
+
+brew install node@14 postgresql@13
+brew link node@14 postgresql@13
+brew services start postgresql@13
+sleep 5
+createuser miter
+createdb -O miter miter-test
+./reset-test-db
+cd ..
+
+cd common
+npm install
+cd ../web/client
+npm install
+cd ../welcome
+npm install
+cd ../../server
+cp -n sample.env .env
+npm install
+npx prisma generate
+
+cd ..

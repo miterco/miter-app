@@ -1,0 +1,55 @@
+{
+  "README1": "This file is used to test Miter's GCal code. Originally it was just the JSON output of the GCal API's",
+  "README2": "events.list call on Dave's calendar, but in the course of open-sourcing the codebase we've pulled that",
+  "README3": "so we don't throw half Dave's address book up on the web. The file format is as follows under the FORMAT",
+  "README4": "key below, with the array as the top level of the JSON file.",
+  "FORMAT": [
+    {
+      "kind": "calendar#event",
+      "etag": "\"1234567890\"",
+      "id": "abcde12345",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=abcde12345",
+      "created": "2020-12-11T23:40:49.000Z",
+      "updated": "2021-01-04T16:21:56.814Z",
+      "summary": "Meeting Title",
+      "description": "the description",
+      "creator": {
+        "email": "sampleemaildf@test.miter.co",
+        "self": true
+      },
+      "organizer": {
+        "email": "sampleemaildf@test.miter.co",
+        "self": true
+      },
+      "start": {
+        "dateTime": "2020-12-14T14:30:00-08:00",
+        "timeZone": "America/Los_Angeles"
+      },
+      "end": {
+        "dateTime": "2020-12-14T15:30:00-08:00",
+        "timeZone": "America/Los_Angeles"
+      },
+      "recurrence": ["RRULE:FREQ=WEEKLY;UNTIL=20210104T075959Z;BYDAY=MO"],
+      "iCalUID": "abcde12345@google.com",
+      "sequence": 1,
+      "attendees": [
+        {
+          "email": "attendee@example.com",
+          "responseStatus": "needsAction"
+        },
+        {
+          "email": "sampleemaildf@test.miter.co",
+          "organizer": true,
+          "self": true,
+          "responseStatus": "accepted"
+        }
+      ],
+      "guestsCanModify": true,
+      "reminders": {
+        "useDefault": true
+      },
+      "eventType": "default"
+    }
+  ]
+}

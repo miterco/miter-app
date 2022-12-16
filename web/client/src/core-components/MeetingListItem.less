@@ -1,0 +1,95 @@
+@import 'Global.less';
+
+.MeetingListItem {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: @low-card-shadow;
+  border-radius: @miter-border-radius-base;
+  margin-bottom: 4px;
+  padding: 10px 12px 0 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  &.SelectedMeeting {
+    background-color: lighten(@brand2-bright, 88%, relative) !important;
+    border-color: fade(@brand2-bright, 10%);
+  }
+
+  &.Past {
+    background-color: rgba(255, 255, 255, 0.67);
+  }
+
+  &:hover {
+    box-shadow: @miter-card-shadow;
+    background-color: lighten(@brand1, 46%);
+    transform: translateY(-1px);
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 4px;
+    align-items: center;
+  }
+
+  h4 {
+    margin: 0;
+    font-size: @miter-font-size-base;
+    font-weight: 600;
+    flex: 1;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+  }
+  &.Past h4 {
+    opacity: 0.9;
+  }
+
+  .TS {
+    font-size: @font-size-small;
+    font-weight: 600;
+    color: @black-alpha-med;
+  }
+
+  h5 {
+    color: @black-alpha-med;
+    font-weight: normal;
+    font-size: @font-size-small;
+  }
+
+  &.Current h5.EmptyWarn,
+  &.Future h5.EmptyWarn {
+    color: @brand2-med;
+    font-weight: 500;
+  }
+
+  .Status {
+    .box-shadow (@color: transparent) {
+      box-shadow: 0 0 0 3px fadeout(@color, 67%);
+    }
+    @lit-color: #5acc9c;
+
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin-right: 8px;
+    transition: box-shadow 1.5s ease-in-out;
+    .box-shadow();
+
+    &.Warn {
+      background-color: @brand2-bright;
+    }
+    &.Warn.Lit {
+      .box-shadow(@brand2-bright);
+    }
+
+    &.Active {
+      background-color: @lit-color;
+    }
+    &.Active.Lit {
+      .box-shadow(@lit-color);
+    }
+  }
+}

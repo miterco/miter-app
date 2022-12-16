@@ -1,0 +1,174 @@
+@import 'Global.less';
+
+.SummaryItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 8px;
+  border-width: 0 0 0.5px 0;
+  border-style: solid;
+  border-color: @black-alpha-lighter;
+
+  svg.ItemIcon {
+    width: 24px;
+    min-width: 0;
+    fill: @brand2-muted;
+
+    & > path {
+      fill: @brand2-muted;
+    }
+  }
+
+  .ant-picker svg path {
+    fill: @black-alpha-med;
+  }
+
+  .ItemCore {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-left: 16px;
+    transition: all 0.3s;
+
+    & > * {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  &.Completed .ItemCore {
+    opacity: 0.3;
+  }
+
+  .MeetingContext {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    width: 0;
+
+    &,
+    & .SimpleTopicPicker,
+    & a {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: @black-alpha-med;
+    }
+    & a:hover {
+      color: @miter-link-color;
+    }
+
+    & > span {
+      min-width: 0;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+      white-space: nowrap;
+    }
+  }
+  .ToggleEditSelect {
+    flex: 1;
+  }
+  .ToggleEdit {
+    margin-left: -8px;
+    padding: 4px 8px;
+  }
+  &.Completed .ToggleEdit {
+    text-decoration: line-through;
+  }
+  .Content {
+    font-size: @miter-font-size-base;
+  }
+  .DateInput {
+    padding-right: 0;
+    padding-left: 0;
+
+    input {
+      margin: 0;
+      text-align: right;
+      font-weight: 600;
+      font-size: @font-size-small;
+      color: @black-alpha-med;
+    }
+    .ant-picker-suffix {
+      margin-left: 8px;
+    }
+  }
+
+  .TopRow {
+    margin-bottom: 4px;
+  }
+  .TopRow .Avatar {
+    opacity: 0.93;
+  }
+  .BottomRow {
+    align-items: flex-start;
+
+    .Avatar {
+      margin-right: 8px;
+    }
+  }
+
+  // TODO: Can this be combined / generalized with the one in ProtocolNoteView.less?
+  // TODO remove overrides once button CSS/props are cleaned up globally
+  button.Btn.ant-btn.OpenProtocolButton {
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+    text-transform: uppercase;
+    gap: 4px;
+
+    span {
+      color: @brand1-med;
+      font-weight: 700;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      path {
+        fill: @brand1-med;
+      }
+    }
+  }
+
+  .ProtocolContent {
+    flex-basis: 100%;
+
+    .ProtocolTitle {
+      font-size: @miter-font-size-base;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .ProtocolList {
+      padding: 0;
+      margin-bottom: 8px;
+      li {
+        display: flex;
+        list-style: none;
+        gap: 16px;
+        font-weight: 400;
+        font-size: @miter-font-size-base;
+        line-height: @miter-line-height-base;
+        margin-top: 8px;
+        word-break: break-word;
+
+        &:not(.Group)::before {
+          content: '';
+          display: block;
+          width: 12px;
+          height: 12px;
+          background-color: @brand1-muted;
+          border: 1px solid @black-alpha-xxlight;
+          border-radius: 50%;
+          flex-shrink: 0;
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+}

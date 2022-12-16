@@ -1,0 +1,77 @@
+@import 'Global.less';
+
+.MagicSignInForm {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 19px;
+    text-align: left;
+    margin-bottom: @miter-padding-lg;
+  }
+
+  input {
+    display: block;
+    font-size: @font-size-large;
+    border-radius: @miter-border-radius-base;
+    border-width: 0;
+    outline: 0;
+    caret-color: @brand2-bright;
+    background-color: @miter-input-background;
+    min-height: 32px;
+    padding: 8px 12px;
+    margin: 8px 0;
+
+    &:focus,
+    &:active,
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.09);
+      border-color: transparent;
+    }
+    &:focus {
+      border-color: transparent;
+      box-shadow: @focus-shadow;
+    }
+
+    &.Dirty:invalid {
+      background: @brand2-lightest;
+      color: @miter-error-color;
+
+      &:not(:focus) {
+        border: 2px solid @miter-error-color;
+      }
+    }
+  }
+
+  .Row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    & > * {
+      flex: 1;
+    }
+  }
+
+  .SubmitConfirm {
+    border-radius: @miter-border-radius-base;
+    background-color: fade(@brand1, 10%);
+    font-size: @font-size-xxlarge;
+    line-height: @line-height-xxlarge;
+    margin: 40px 0 32px 0;
+    padding: 24px;
+  }
+  .SubmitError {
+    border-radius: @miter-border-radius-base;
+    padding: 16px;
+    font-size: @font-size-large;
+    line-height: @line-height-large;
+    font-weight: bold;
+    margin-bottom: 24px;
+    background-color: fade(@miter-error-color, 8%);
+    color: @miter-error-color;
+  }
+}

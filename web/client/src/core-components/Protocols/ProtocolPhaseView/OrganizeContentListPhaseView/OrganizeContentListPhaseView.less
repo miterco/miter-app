@@ -1,0 +1,107 @@
+@import 'Global.less';
+
+.OrganizeContentListPhaseView {
+  padding: 4px 6px !important;
+  .Dropzone {
+    padding: 4px 6px;
+    border: dashed 2px transparent;
+    background-color: white;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .Group {
+    border: dashed 2px transparent;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    padding: 4px 2px;
+    margin: 4px 0px;
+    .GroupName {
+      color: @black-alpha-dark;
+      font-weight: 800;
+      font-size: @font-size-small;
+      line-height: @line-height-small;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      cursor: text;
+      text-align: center;
+      border-radius: 8px;
+      padding: 4px;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        background-color: @black-alpha-xlight;
+      }
+    }
+
+    .GroupItem {
+      border: dashed 2px transparent;
+      border-radius: 16px 4px;
+      transition: all 0.2s ease-in-out;
+      margin-bottom: 8px;
+
+      .ProtocolCardWrapper {
+        margin-bottom: 0;
+      }
+      &.isOverCurrent {
+        border-color: @brand1;
+        background-color: @black-alpha-xlight;
+      }
+    }
+
+    &.isGrouped {
+      background-color: white;
+
+      .GroupItem {
+        margin-bottom: -24px;
+        position: relative;
+        &:nth-child(2n + 1) {
+          margin-left: 4px;
+        }
+        &:nth-child(2n) {
+          margin-right: 4px;
+        }
+        &:last-child,
+        &:first-child {
+          margin-bottom: 0;
+        }
+      }
+
+      &.isEmpty {
+        border-color: @black-alpha-lighter;
+      }
+    }
+
+    .EmptyGroup {
+      color: @black-alpha-medlight;
+      font-weight: 800;
+      font-size: @font-size-small;
+      line-height: @line-height-small;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &.isDragging {
+      border-color: @black-alpha-lighter;
+    }
+
+    &.isDraggingOverCurrentGroup {
+      border-color: @brand1;
+      background-color: @brand1-lightest;
+      .EmptyGroup {
+        border-color: inherit;
+      }
+    }
+  }
+
+  &.isDragging .Dropzone {
+    border-color: @black-alpha-lighter;
+    cursor: grabbing;
+  }
+
+  &.isDraggingOverCurrentGroup .Dropzone {
+    background-color: @brand1-lightest;
+    border-color: @brand1;
+  }
+}

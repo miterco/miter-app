@@ -1,0 +1,204 @@
+@import 'Global.less';
+
+.StandardSignIn,
+.ModalNotice {
+  font-family: trade-gothic-next;
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    background-color: @brand1;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+
+    .Logo {
+      height: 32px;
+      position: absolute;
+    }
+
+    h1 {
+      flex: 1;
+      font-weight: 800;
+      color: @brand1-darkest;
+      font-size: 27px;
+      margin: -4px 0 0 24px;
+      text-align: center;
+    }
+
+    button {
+      background-color: transparent;
+      border: 0;
+
+      path {
+        fill: @brand1-darkest;
+      }
+    }
+  }
+
+  .Steps {
+    background: white;
+    display: flex;
+    justify-content: center;
+    height: 72px;
+    min-height: 72px;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: @black-alpha-lighter;
+
+    & > * {
+      margin: 0 12px;
+    }
+  }
+
+  .ContentScroll {
+    flex-grow: 1;
+    background: white;
+  }
+
+  &.Step3,
+  &.Step4 {
+    .ContentScroll {
+      min-height: 0;
+      overflow-y: scroll;
+    }
+    .Content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .InviteColleagues {
+        max-width: 580px;
+        margin: 24px 0;
+        gap: 18px;
+
+        .Title {
+          display: none;
+        }
+
+        .Instructions {
+          max-width: 580px;
+        }
+      }
+    }
+    h3 {
+      color: @brand1-dark;
+      font-size: @font-size-xxlarge;
+      line-height: 1em;
+      font-weight: 900;
+    }
+  }
+
+  &.Step3 .Content {
+    padding: 0;
+  }
+
+  .Content {
+    margin: auto;
+    padding: 40px 0;
+  }
+
+  p {
+    font-size: 19px;
+    line-height: 32px;
+    max-width: 580px;
+    margin: 0 auto;
+
+    &.Small {
+      font-size: 15px;
+      line-height: 24px;
+      color: @brand1-darkest;
+    }
+  }
+
+  h1,
+  h2 {
+    font-family: maecenas-heavies;
+  }
+
+  a {
+    font-weight: 600;
+  }
+
+  button {
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      transform: scale(1.03);
+    }
+    &:active {
+      transform: scale(0.95);
+    }
+    &[disabled] {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .Buttons {
+    display: flex;
+    justify-content: center;
+    padding: 32px 0;
+
+    button {
+      border-width: 0;
+      outline-width: 0;
+      padding: 0;
+      background-color: transparent;
+
+      &.Btn {
+        background-color: @miter-btn-color-primary;
+        padding: 8px 20px 8px 8px;
+        color: white;
+        display: inline-flex;
+
+        &:focus,
+        &:hover {
+          color: white;
+          background-color: @miter-btn-color-primary;
+        }
+
+        path {
+          fill: white;
+        }
+
+        span {
+          line-height: 24px;
+        }
+      }
+    }
+
+    &.Secondary {
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-top: 32px;
+
+      & > * {
+        margin: 0 16px;
+        color: @black-alpha-light;
+      }
+    }
+
+    button.GoogleSignIn {
+      width: 191px;
+      height: 46px;
+      background-image: url(../../../image/btn_google_signin_dark_normal_web@2x.png);
+      background-size: contain;
+
+      &:focus {
+        background-image: url(../../../image/btn_google_signin_dark_focus_web@2x.png);
+      }
+      &:active {
+        background-image: url(../../../image/btn_google_signin_dark_pressed_web@2x.png);
+      }
+
+      & span {
+        display: none;
+      }
+    }
+  }
+}
